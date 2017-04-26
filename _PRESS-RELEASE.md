@@ -16,29 +16,31 @@ Oh, and I also like to write press-releases in what I call "Oprah-speak" for mai
 Once the project moves into development, the press release can be used as a touchstone; a guiding light. The product team can ask themselves, "Are we building what is in the press release?" If they find they're spending time building things that aren't in the press release (overbuilding), they need to ask themselves why. This keeps product development focused on achieving the customer benefits and not building extraneous stuff that takes longer to build, takes resources to maintain, and doesn't provide real customer benefit (at least not enough to warrant inclusion in the press release).
  -->
  
-## Heading ##
+## Q ##
   > Name the product in a way the reader (i.e. your target customers) will understand.
 
-## Sub-Heading ##
+## People who want to get paid to stand in line, or find someone else to do it for them. ##
   > Describe who the market for the product is and what benefit they get. One sentence only underneath the title.
 
-## Summary ##
+## Q connects people who don't want to wait in line, with people that do. Wether 'something just came up', or you ##
   > Give a summary of the product and the benefit. Assume the reader will not read anything else so make this paragraph good.
 
-## Problem ##
+## People don't like waiting in lines. ##
   > Describe the problem your product solves.
 
-## Solution ##
+## Allows people to sign up for Qs other people have set up. ##
   > Describe how your product elegantly solves the problem.
 
-## Quote from You ##
+## Get paid for standing in line. ##
+- If there's something worse than standing in line, it's not having any money.
+
   > A quote from a spokesperson in your company.
 
-## How to Get Started ##
+## Create an account and view the feed for any Qs your interested in, or create a Q.##
   > Describe how easy it is to get started.
 
-## Customer Quote ##
+## I'd never thought standing in lines would be something we can all benefit from. ##
   > Provide a quote from a hypothetical customer that describes how they experienced the benefit.
 
-## Closing and Call to Action ##
+## Sign up for a Q, and start getting compensated for it. ##
   > Wrap it up and give pointers where the reader should go next.
