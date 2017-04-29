@@ -15,5 +15,8 @@
   "bugs": {
     "url": "https://github.com/techmexdev/LineUpForMoi/issues"
   },
-  "homepage": "https://github.com/techmexdev/LineUpForMoi#readme"
+  "homepage": "https://github.com/techmexdev/LineUpForMoi#readme",
+  "devDependencies": {
+    "eslint": "^3.19.0"
+  }
 }
