@@ -1,11 +1,35 @@
-var mysql = require('mysql');
+const mysql = require('mysql');
 
-var connection = mysql.createConnection({
+const connection = mysql.createConnection({
   host: 'localhost',
   user: 'root',
   database: 'q',
-  password: ''
-})
+  password: '',
+});
 
 connection.connect();
-//query goes here
+// query goes here
+
+module.exports = {
+  insertQ(values, callback) {
+    const queryString = `INSERT INTO events (name, amount, address, city, state, date, time, duration)
+    VALUES (?, ?, ?, ?, ?, ?, ?, ?);
+`;
+    connection.query(queryString, values, (err, results) => {
+      if (err) {
+        callback(err, null);
+      } else {
+        callback(null, results);
+      }
+    });
+  },
+  getAll(callback) {
+    connection.query('SELECT * FROM events', (err, results) => {
+      if (err) {
+        callback(err, null);
+      } else {
+        callback(null, results);
+      }
+    });
+  },
+};

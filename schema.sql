@@ -14,7 +14,8 @@ CREATE TABLE events(
   date date NOT NULL,
   time time NOT NULL,
   duration int (10) NOT NULL,
+  contactEmail varchar(50),
   PRIMARY KEY(ID)
 );
 
-INSERT INTO events (name, amount, address, city, state, date, time, duration) VALUES ("Franklin's", 200, '900 E. 11th St.', 'Austin', 'TX', '2017-05-05', '11:30:00', 4);
+INSERT INTO events (name, amount, address, city, state, date, time, duration, contactEmail) VALUES ("Franklin's", 200, '900 E. 11th St.', 'Austin', 'TX', '2017-05-05', '11:30:00', 4, 'peter@johnson.com');
