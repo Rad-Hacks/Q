@@ -8,21 +8,21 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/techmexdev/LineUpForMoi.git"
+    "url": "git+https://github.com/Rad-Hacks/LineUpForMoi.git"
   },
   "author": "",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/techmexdev/LineUpForMoi/issues"
+    "url": "https://github.com/Rad-Hacks/LineUpForMoi/issues"
   },
-  "homepage": "https://github.com/techmexdev/LineUpForMoi#readme",
+  "homepage": "https://github.com/Rad-Hacks/LineUpForMoi#readme",
   "devDependencies": {
     "eslint": "^3.19.0",
     "eslint-config-airbnb": "^14.1.0",
     "eslint-plugin-import": "^2.2.0",
     "eslint-plugin-jsx-a11y": "^4.0.0",
     "eslint-plugin-react": "^6.10.3",
-    "nodemon": "^1.11.0",
+    "nodemon": "^1.11.0"
   },
   "dependencies": {
     "body-parser": "^1.17.1",
