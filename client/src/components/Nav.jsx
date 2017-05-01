@@ -1,9 +1,9 @@
 import React from 'react';
-import EventForm from './EventForm';
+import CreateEvent from './CreateEvent';
 
 const Nav = () => (
   <div>
-    <EventForm />
+    <CreateEvent />
   </div>
 );
 
