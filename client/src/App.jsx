@@ -15,18 +15,21 @@ class App extends Component {
       events: [],
       locations: [],
       currentLocation: null,
-      sort: false
-    }
+      sort: false,
+    };
+    this.setLocation = this.setLocation.bind(this);
+    this.toggleSort = this.toggleSort.bind(this);
   }
 
   componentDidMount() {
     fetch('http://localhost:8080/api/events')
-      .then(res =>  res.json())
-      .then(json => {this.setState ({
-        events: json,
-        locations: json.map(event => event.city + ', ' + event.state)
-      })
-    });
+      .then(res => res.json())
+      .then((json) => {
+        this.setState({
+          events: json,
+          locations: json.map(event => `${event.city}, ${event.state}`),
+        });
+      });
   }
 
   setLocation(loc) {
@@ -54,8 +57,16 @@ class App extends Component {
           <br />
           <br />
         </p>
-        <FilterBox locations={this.state.locations} setLocation={this.setLocation.bind(this)} toggleSort={this.toggleSort.bind(this)} />
-        <EventsList events={this.state.events} currentLocation={this.state.currentLocation} sort={this.state.sort}/>
+        <FilterBox
+          locations={this.state.locations}
+          setLocation={this.setLocation}
+          toggleSort={this.toggleSort}
+        />
+        <EventsList
+          events={this.state.events}
+          currentLocation={this.state.currentLocation}
+          sort={this.state.sort}
+        />
       </div>
     );
   }

@@ -30,10 +30,16 @@ class EventForm extends Component {
       state: null,
       date: null,
       time: null,
+      contactEmail: null,
     };
     this.handleChangeName = this.handleChangeName.bind(this);
+    this.handleChangeAmount = this.handleChangeAmount.bind(this);
+    this.handleChangeAddress = this.handleChangeAddress.bind(this);
+    this.handleChangeCity = this.handleChangeCity.bind(this);
+    this.handleChangeState = this.handleChangeState.bind(this);
     this.handleChangeDatePicker = this.handleChangeDatePicker.bind(this);
     this.handleChangeTimePicker = this.handleChangeTimePicker.bind(this);
+    this.handleChangeEmail = this.handleChangeEmail.bind(this);
   }
   handleChangeName(value) {
     this.setState({
@@ -68,6 +74,11 @@ class EventForm extends Component {
   handleChangeTimePicker(event, date) {
     this.setState({
       time: date,
+    });
+  }
+  handleChangeEmail(value) {
+    this.setState({
+      contactEmail: value,
     });
   }
   render() {

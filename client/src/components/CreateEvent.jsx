@@ -6,8 +6,8 @@ import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import EventForm from './EventForm';
 
 class CreateEvent extends Component {
-  constructor() {
-    super();
+  constructor(props) {
+    super(props);
     this.state = {
       open: false,
     };
@@ -37,7 +37,6 @@ class CreateEvent extends Component {
       <FlatButton
         label="Submit"
         primary
-        disabled
         onTouchTap={this.handleClose}
       />,
     ];
