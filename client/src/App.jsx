@@ -12,6 +12,8 @@ class App extends Component {
     super(props);
     this.state = {
       events: [],
+      locations: [],
+      currentLocation: null
     }
   }
 
@@ -19,8 +21,17 @@ class App extends Component {
     fetch('http://localhost:8080/api/events')
       .then(res =>  res.json())
       .then(json => {this.setState ({
-        events: json
+        events: json,
+        locations: json.map(event => event.city + ', ' + event.state)
       })
+    });
+  }
+
+  setLocation(loc) {
+    this.setState({
+      currentLocation: loc
+    }, function () {
+      console.log(this.state.currentLocation)
     });
   }
 
@@ -35,8 +46,8 @@ class App extends Component {
         <p className="App-intro">
           Sign-up, stand in line, make money.
         </p>
-        <FilterBox />
-        <EventsList events={this.state.events} />
+        <FilterBox locations={this.state.locations} setLocation={this.setLocation.bind(this)} />
+        <EventsList events={this.state.events} currentLocation={this.state.currentLocation} />
       </div>
     );
   }
