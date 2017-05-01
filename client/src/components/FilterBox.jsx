@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import AutoComplete from 'material-ui/AutoComplete';
+import RaisedButton from 'material-ui/RaisedButton';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 
 class FilterBox extends Component {
@@ -18,6 +19,12 @@ class FilterBox extends Component {
             onUpdateInput={this.props.setLocation}
           />
         </MuiThemeProvider>
+        <br />
+        <MuiThemeProvider>
+          <RaisedButton label="Sort $$$ --> $" primary={true} onClick={this.props.toggleSort}/>
+        </MuiThemeProvider>
+        <br />
+        <br />
       </div>
     );
   }
