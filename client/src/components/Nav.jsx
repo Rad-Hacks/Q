@@ -1,9 +1,11 @@
-import React, { Component } from 'react';
+import React from 'react';
+import EventForm from './EventForm';
 
 const Nav = () => (
   <div>
-   <p> This is Nav</p>
+    {/* <p> This is Nav</p> */}
+    <EventForm />
   </div>
 );
 
-module.exports = Nav;
+export default Nav;

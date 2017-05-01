@@ -1,10 +1,11 @@
 import React, { Component } from 'react';
+import injectTapEventPlugin from 'react-tap-event-plugin';
 import logo from './q-baller.png';
 import './App.css';
-import Nav from './components/Nav.jsx';
-import EventsList from './components/EventsList.jsx';
-import FilterBox from './components/FilterBox.jsx';
-import injectTapEventPlugin from 'react-tap-event-plugin';
+import Nav from './components/Nav';
+import EventsList from './components/EventsList';
+import FilterBox from './components/FilterBox';
+
 injectTapEventPlugin();
 
 class App extends Component {
@@ -18,7 +19,7 @@ class App extends Component {
     }
   }
 
-  componentDidMount () {
+  componentDidMount() {
     fetch('http://localhost:8080/api/events')
       .then(res =>  res.json())
       .then(json => {this.setState ({
@@ -45,8 +46,8 @@ class App extends Component {
       <div className="App">
         <div className="App-header">
           <img src={logo} className="App-logo" alt="logo" />
-          <h2>Welcome to Q</h2>
           <Nav />
+          <h2>Welcome to Q</h2>
         </div>
         <p className="App-intro">
           Sign-up, stand in line, make money.
