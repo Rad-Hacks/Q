@@ -13,7 +13,8 @@ class App extends Component {
     this.state = {
       events: [],
       locations: [],
-      currentLocation: null
+      currentLocation: null,
+      sort: false
     }
   }
 
@@ -29,9 +30,13 @@ class App extends Component {
 
   setLocation(loc) {
     this.setState({
-      currentLocation: loc
-    }, function () {
-      console.log(this.state.currentLocation)
+      currentLocation: loc,
+    });
+  }
+
+  toggleSort() {
+    this.setState({
+      sort: !this.state.sort,
     });
   }
 
@@ -45,9 +50,11 @@ class App extends Component {
         </div>
         <p className="App-intro">
           Sign-up, stand in line, make money.
+          <br />
+          <br />
         </p>
-        <FilterBox locations={this.state.locations} setLocation={this.setLocation.bind(this)} />
-        <EventsList events={this.state.events} currentLocation={this.state.currentLocation} />
+        <FilterBox locations={this.state.locations} setLocation={this.setLocation.bind(this)} toggleSort={this.toggleSort.bind(this)} />
+        <EventsList events={this.state.events} currentLocation={this.state.currentLocation} sort={this.state.sort}/>
       </div>
     );
   }
