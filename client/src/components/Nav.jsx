@@ -3,7 +3,6 @@ import EventForm from './EventForm';
 
 const Nav = () => (
   <div>
-    {/* <p> This is Nav</p> */}
     <EventForm />
   </div>
 );
