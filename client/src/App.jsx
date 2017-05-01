@@ -27,6 +27,14 @@ class App extends Component {
     });
   }
 
+  setLocation(loc) {
+    this.setState({
+      currentLocation: loc
+    }, function () {
+      console.log(this.state.currentLocation)
+    });
+  }
+
   render() {
     return (
       <div className="App">
@@ -38,8 +46,8 @@ class App extends Component {
         <p className="App-intro">
           Sign-up, stand in line, make money.
         </p>
-        <FilterBox locations={this.state.locations} />
-        <EventsList events={this.state.events} />
+        <FilterBox locations={this.state.locations} setLocation={this.setLocation.bind(this)} />
+        <EventsList events={this.state.events} currentLocation={this.state.currentLocation} />
       </div>
     );
   }

@@ -10,11 +10,12 @@ class FilterBox extends Component {
   render() {
     return (
       <div>
+        <p>Enter your city and state below:</p>
         <MuiThemeProvider>
           <AutoComplete
             hintText="City, ST"
             dataSource={this.props.locations}
-            onUpdateInput={this.handleUpdateInput}
+            onUpdateInput={this.props.setLocation}
           />
         </MuiThemeProvider>
       </div>
