@@ -1,9 +1,16 @@
-import React, { Component } from 'react';
+import React from 'react';
+import PropTypes from 'prop-types';
+import EventForm from './EventForm';
 
-const Nav = () => (
+const Nav = props => (
   <div>
-   <p> This is Nav</p>
+    <EventForm handleCreateQ={props.handleCreateQ} />
   </div>
 );
 
-module.exports = Nav;
+Nav.propTypes = {
+  handleCreateQ: PropTypes.func.isRequired,
+};
+
+
+export default Nav;

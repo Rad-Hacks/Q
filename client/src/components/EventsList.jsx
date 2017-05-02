@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import EventsListItem from './EventsListItem';
 
 class EventsList extends Component {
@@ -56,9 +57,14 @@ class EventsList extends Component {
 }
 
 EventsList.propTypes = {
-  currentLocation: React.PropTypes.node.isRequired,
-  sort: React.PropTypes.node.isRequired,
-  events: React.PropTypes.node.isRequired,
+  currentLocation: PropTypes.string,
+  sort: PropTypes.bool,
+  events: PropTypes.node.isRequired,
 };
 
-module.exports = EventsList;
+EventsList.defaultProps = {
+  currentLocation: null,
+  sort: null,
+};
+
+export default EventsList;

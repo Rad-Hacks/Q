@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import AutoComplete from 'material-ui/AutoComplete';
 import RaisedButton from 'material-ui/RaisedButton';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
@@ -23,9 +24,9 @@ const FilterBox = props => (
 );
 
 FilterBox.propTypes = {
-  locations: React.PropTypes.node.isRequired,
-  setLocation: React.PropTypes.node.isRequired,
-  toggleSort: React.PropTypes.node.isRequired,
+  locations: PropTypes.node.isRequired,
+  setLocation: PropTypes.node.isRequired,
+  toggleSort: PropTypes.node.isRequired,
 };
 
 module.exports = FilterBox;
