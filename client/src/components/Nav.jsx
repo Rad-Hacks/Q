@@ -9,7 +9,7 @@ const Nav = props => (
 );
 
 Nav.propTypes = {
-  handleCreateQ: PropTypes.node.isRequired,
+  handleCreateQ: PropTypes.func.isRequired,
 };
 
 
