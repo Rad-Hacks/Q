@@ -9,14 +9,14 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/Rad-Hacks/LineUpForMoi.git"
+    "url": "git+https://github.com/Rad-Hacks/Q.git"
   },
   "author": "",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/Rad-Hacks/LineUpForMoi/issues"
+    "url": "https://github.com/Rad-Hacks/Q/issues"
   },
-  "homepage": "https://github.com/Rad-Hacks/LineUpForMoi#readme",
+  "homepage": "https://github.com/Rad-Hacks/Q#readme",
   "devDependencies": {
     "eslint": "^3.19.0",
     "eslint-config-airbnb": "^14.1.0",
