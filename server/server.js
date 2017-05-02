@@ -33,7 +33,7 @@ app.post('/api/events', (req, res) => {
     if (err) {
       res.sendStatus(500);
     } else {
-      res.send(201).send('Success submiting: ', results);
+      res.sendStatus(201);
     }
   });
 });
