@@ -29,7 +29,8 @@ class App extends Component {
       .then((json) => {
         this.setState({
           events: json,
-          locations: json.map(event => `${event.city}, ${event.state}`),
+          locations: json.map(event => `${event.city}, ${event.state}`).filter((elem, index, self) =>
+            index === self.indexOf(elem)),
         });
       });
   }

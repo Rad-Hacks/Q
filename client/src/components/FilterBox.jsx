@@ -1,8 +1,18 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import AutoComplete from 'material-ui/AutoComplete';
-import RaisedButton from 'material-ui/RaisedButton';
+import CustomRaisedButton from 'material-ui/RaisedButton';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
+import { purple500 } from 'material-ui/styles/colors';
+
+const styles = {
+  labelStyle: {
+    color: purple500,
+  },
+  underlineStyle: {
+    borderColor: purple500,
+  },
+};
 
 const FilterBox = props => (
   <div>
@@ -12,11 +22,16 @@ const FilterBox = props => (
         hintText="City, ST"
         dataSource={props.locations}
         onUpdateInput={props.setLocation}
+        underlineStyle={styles.underlineStyle}
       />
     </MuiThemeProvider>
     <br />
     <MuiThemeProvider>
-      <RaisedButton label="Sort $$$ ---> $" primary onClick={props.toggleSort} />
+      <CustomRaisedButton
+        label="Sort $$$ ---> $"
+        onClick={props.toggleSort}
+        labelStyle={styles.labelStyle}
+      />
     </MuiThemeProvider>
     <br />
     <br />
