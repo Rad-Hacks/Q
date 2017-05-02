@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import injectTapEventPlugin from 'react-tap-event-plugin';
+import $ from 'jquery';
 import logo from './q-baller.png';
 import './App.css';
 import Nav from './components/Nav';
@@ -16,6 +17,7 @@ class App extends Component {
       locations: [],
       currentLocation: null,
       sort: false,
+      createQMsg: null,
     };
     this.setLocation = this.setLocation.bind(this);
     this.toggleSort = this.toggleSort.bind(this);
