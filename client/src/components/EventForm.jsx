@@ -48,8 +48,6 @@ const parseTime = (dateStr) => {
   return time;
 };
 
-// TIME: Mon May 01 2017 14:25:07 GMT-0500 (CDT)
-
 class EventForm extends Component {
   constructor(props) {
     super(props);
@@ -75,6 +73,7 @@ class EventForm extends Component {
     this.handleChangeDuration = this.handleChangeDuration.bind(this);
     this.handleChangeEmail = this.handleChangeEmail.bind(this);
     this.handleClose = this.handleClose.bind(this);
+    this.handleSubmit = this.handleSubmit.bind(this);
     this.handleOpen = this.handleOpen.bind(this);
   }
 
@@ -84,6 +83,11 @@ class EventForm extends Component {
     });
   }
   handleClose() {
+    this.setState({
+      open: false,
+    });
+  }
+  handleSubmit() {
     const eventObj = {
       name: this.state.name,
       amount: this.state.amount,
@@ -95,7 +99,6 @@ class EventForm extends Component {
       duration: this.state.duration,
       contactEmail: this.state.contactEmail,
     };
-    console.log(eventObj);
     const self = this;
     $.ajax({
       type: 'POST',
@@ -170,7 +173,7 @@ class EventForm extends Component {
       <FlatButton
         label="Submit"
         primary
-        onTouchTap={this.handleClose}
+        onTouchTap={this.handleSubmit}
       />,
     ];
 
