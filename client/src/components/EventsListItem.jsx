@@ -1,19 +1,17 @@
-import React, { Component } from 'react';
-import {Card, CardActions, CardHeader, CardText} from 'material-ui/Card';
-import FlatButton from 'material-ui/FlatButton';
+import React from 'react';
+import { Card, CardHeader, CardText } from 'material-ui/Card';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 
-const EventsListItem = (props) => (
+const EventsListItem = props => (
   <MuiThemeProvider>
     <Card>
-      <p>{console.log('props', props)}</p>
       <CardHeader
         title={props.data.name}
         subtitle={props.data.address}
-        actAsExpander={true}
-        showExpandableButton={true}
+        actAsExpander
+        showExpandableButton
       />
-      <CardText expandable={true}>
+      <CardText expandable>
         Amount: {props.data.amount}
         Date: {props.data.date}
         Time: {props.data.time}
@@ -21,7 +19,11 @@ const EventsListItem = (props) => (
         Contact: {props.data.contactEmail}
       </CardText>
     </Card>
-    </MuiThemeProvider>
+  </MuiThemeProvider>
 );
+
+EventsListItem.propTypes = {
+  data: React.PropTypes.node.isRequired,
+};
 
 export default EventsListItem;
