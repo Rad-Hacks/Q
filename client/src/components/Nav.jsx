@@ -1,10 +1,16 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import EventForm from './EventForm';
 
-const Nav = () => (
+const Nav = props => (
   <div>
-    <EventForm />
+    <EventForm handleCreateQ={props.handleCreateQ} />
   </div>
 );
+
+Nav.propTypes = {
+  handleCreateQ: PropTypes.node.isRequired,
+};
+
 
 export default Nav;

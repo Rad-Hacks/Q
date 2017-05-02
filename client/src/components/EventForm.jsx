@@ -24,6 +24,32 @@ const styles = {
   },
 };
 
+const parsedDate = (dateStr) => {
+  const month = dateStr.slice(4, 7);
+  const months = {
+    Jan: '01',
+    Feb: '02',
+    Mar: '03',
+    Apr: '04',
+    May: '05',
+    Jun: '06',
+    Jul: '07',
+    Aug: '08',
+    Sep: '09',
+    Oct: '10',
+    Nov: '11',
+    Dec: '12',
+  };
+  return `${dateStr.slice(11, 15)}-${months[month]}-${dateStr.slice(8, 10)}`;
+};
+
+const parseTime = (dateStr) => {
+  const time = dateStr.slice(16, 24);
+  return time;
+};
+
+// TIME: Mon May 01 2017 14:25:07 GMT-0500 (CDT)
+
 class EventForm extends Component {
   constructor(props) {
     super(props);
@@ -58,31 +84,37 @@ class EventForm extends Component {
     });
   }
   handleClose() {
-    // let eventObj = {
-    //   name: this.state.name ,
-    //   amount: this.state.amount,
-    //   address: this.state.address,
-    //   city: this.state.city,
-    //   state: this.state.state,
-    //   date: this.state.date,
-    //   time: this.state.time,
-    //   duration: this.state.duration,
-    //   contactEmail: this.state.contactEmail,
-    // }
-    // $.ajax({
-    //   type: 'POST',
-    //   data: eventObj,
-    //   success: (err, resp) => {
-    //     this.setState({
-    //       createQMsg: 'Successfully submitted',
-    //     });
-    //     console.log(resp);
-    //   },
-    // });
-    this.setState({
-      open: false,
+    const eventObj = {
+      name: this.state.name,
+      amount: this.state.amount,
+      address: this.state.address,
+      city: this.state.city,
+      state: this.state.state,
+      date: parsedDate(this.state.date.toString()),
+      time: parseTime(this.state.time.toString()),
+      duration: this.state.duration,
+      contactEmail: this.state.contactEmail,
+    };
+    console.log(eventObj);
+    const self = this;
+    $.ajax({
+      type: 'POST',
+      url: 'http://127.0.0.1:8080/api/events',
+      data: eventObj,
+      success: () => {
+        self.props.handleCreateQ();
+        self.setState({
+          open: false,
+        });
+      },
+      error: (err) => {
+        self.setState({
+          createQMsg: `Error: ${err}, please try again`,
+        });
+      },
     });
   }
+
   handleChangeName(e, value) {
     this.setState({
       name: value,
@@ -111,12 +143,12 @@ class EventForm extends Component {
   handleChangeDatePicker(event, date) {
     this.setState({
       date,
-    }, () => console.log(typeof this.state.date));
+    });
   }
   handleChangeTimePicker(event, date) {
     this.setState({
       time: date,
-    }, () => console.log(typeof this.state.time));
+    });
   }
   handleChangeDuration(event, value) {
     this.setState({
@@ -200,7 +232,7 @@ class EventForm extends Component {
                 onChange={this.handleChangeTimePicker}
               /><br />
               <TextField
-                floatingLabelText="Duration"
+                floatingLabelText="Duration in Hours"
                 floatingLabelStyle={styles.floatingLabelStyle}
                 floatingLabelFocusStyle={styles.floatingLabelFocusStyle}
                 onChange={this.handleChangeDuration}
@@ -212,6 +244,7 @@ class EventForm extends Component {
                 onChange={this.handleChangeEmail}
               />
             </div>
+            <p> {this.state.createQMsg} </p>
           </Dialog>
         </div>
       </MuiThemeProvider>

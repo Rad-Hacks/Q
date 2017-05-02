@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import injectTapEventPlugin from 'react-tap-event-plugin';
-import $ from 'jquery';
 import logo from './q-baller.png';
 import './App.css';
 import Nav from './components/Nav';
@@ -17,10 +16,11 @@ class App extends Component {
       locations: [],
       currentLocation: null,
       sort: false,
-      createQMsg: null,
+      createQMsg: true,
     };
     this.setLocation = this.setLocation.bind(this);
     this.toggleSort = this.toggleSort.bind(this);
+    this.handleCreateQ = this.handleCreateQ.bind(this);
   }
 
   componentDidMount() {
@@ -46,12 +46,18 @@ class App extends Component {
     });
   }
 
+  handleCreateQ() {
+    this.setState({
+      createQMsg: !this.state.createQMsg,
+    });
+  }
+
   render() {
     return (
       <div className="App">
         <div className="App-header">
           <img src={logo} className="App-logo" alt="logo" />
-          <Nav />
+          <Nav handleCreateQ={this.handleCreateQ} />
           <h2>Welcome to Q</h2>
         </div>
         <p className="App-intro">
