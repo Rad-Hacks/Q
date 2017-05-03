@@ -17,6 +17,7 @@ class App extends Component {
       currentLocation: null,
       sort: false,
       createQMsg: true,
+      loggedIn: null,
     };
     this.setLocation = this.setLocation.bind(this);
     this.toggleSort = this.toggleSort.bind(this);
@@ -58,7 +59,10 @@ class App extends Component {
       <div className="App">
         <div className="App-header">
           <img src={logo} className="App-logo" alt="logo" />
-          <Nav handleCreateQ={this.handleCreateQ} />
+          <Nav
+            handleCreateQ={this.handleCreateQ}
+            userId={this.state.loggedIn}
+          />
           <h2>Welcome to Q</h2>
         </div>
         <p className="App-intro">

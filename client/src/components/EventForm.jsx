@@ -8,6 +8,7 @@ import TextField from 'material-ui/TextField';
 import TimePicker from 'material-ui/TimePicker';
 import DatePicker from 'material-ui/DatePicker';
 import { purple500, blue500 } from 'material-ui/styles/colors';
+import PropTypes from 'prop-types';
 
 const styles = {
   errorStyle: {
@@ -88,7 +89,9 @@ class EventForm extends Component {
     });
   }
   handleSubmit() {
+    const self = this;
     const eventObj = {
+      user_id: self.props.userId,
       name: this.state.name,
       amount: this.state.amount,
       address: this.state.address,
@@ -99,7 +102,6 @@ class EventForm extends Component {
       duration: this.state.duration,
       contactEmail: this.state.contactEmail,
     };
-    const self = this;
     $.ajax({
       type: 'POST',
       url: 'http://127.0.0.1:8080/api/events',
@@ -254,5 +256,9 @@ class EventForm extends Component {
     );
   }
 }
+
+EventForm.propTypes = {
+  userId: PropTypes.func.isRequired,
+};
 
 export default EventForm;
