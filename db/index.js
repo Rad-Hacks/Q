@@ -34,4 +34,26 @@ module.exports = {
       }
     });
   },
+
+
+  createUser(values, callback) {
+    var password = values[1];
+    bcrypt.hash(password, saltRounds, (err, hash) => {
+      if (err) {
+        callback(err, console.log('Password cannot be hashed'));
+      } else {
+        values[1] = hash;
+        const queryString = `INSERT INTO users (username, password, city, state, phone, contactEmail, user_id)
+        VALUES (?, ?, ?, ?, ?, ?, ?);`;
+
+        connection.query(queryString, values, (err, results) => {
+          if (err) {
+            callback(err, null);
+          } else {
+            callback(null, results);
+          }
+        })
+      }
+    });
+  }
 };
