@@ -12,6 +12,9 @@ const styles = {
   underlineStyle: {
     borderColor: purple500,
   },
+  backgroundColor: {
+    color: purple500,
+  },
 };
 
 const FilterBox = props => (
@@ -30,9 +33,10 @@ const FilterBox = props => (
     <br />
     <MuiThemeProvider>
       <CustomRaisedButton
-        label="Sort $$$ ---> $"
+        label="Sort $$$ → $"
         onClick={props.toggleSort}
         labelStyle={styles.labelStyle}
+        backgroundColor={styles.backgroundColor}
       />
     </MuiThemeProvider>
     <br />
