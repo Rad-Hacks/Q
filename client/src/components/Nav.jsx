@@ -4,12 +4,16 @@ import EventForm from './EventForm';
 
 const Nav = props => (
   <div>
-    <EventForm handleCreateQ={props.handleCreateQ} />
+    <EventForm
+      handleCreateQ={props.handleCreateQ}
+      userId={props.userId}
+    />
   </div>
 );
 
 Nav.propTypes = {
   handleCreateQ: PropTypes.func.isRequired,
+  userId: PropTypes.func.isRequired,
 };
 
 

@@ -12,6 +12,9 @@ const styles = {
   underlineStyle: {
     borderColor: purple500,
   },
+  backgroundColor: {
+    color: purple500,
+  },
 };
 
 const FilterBox = props => (
@@ -23,14 +26,17 @@ const FilterBox = props => (
         dataSource={props.locations}
         onUpdateInput={props.setLocation}
         underlineStyle={styles.underlineStyle}
+        filter={AutoComplete.caseInsensitiveFilter}
+        maxSearchResults={10}
       />
     </MuiThemeProvider>
     <br />
     <MuiThemeProvider>
       <CustomRaisedButton
-        label="Sort $$$ ---> $"
+        label="Sort $$$ → $"
         onClick={props.toggleSort}
         labelStyle={styles.labelStyle}
+        backgroundColor={styles.backgroundColor}
       />
     </MuiThemeProvider>
     <br />
