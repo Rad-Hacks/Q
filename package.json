@@ -26,7 +26,9 @@
     "nodemon": "^1.11.0"
   },
   "dependencies": {
+    "bcrypt": "^1.0.2",
     "body-parser": "^1.17.1",
+    "crypto": "0.0.3",
     "express": "^4.15.2",
     "jquery": "^3.2.1",
     "mysql": "^2.13.0",
