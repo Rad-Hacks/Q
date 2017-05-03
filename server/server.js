@@ -2,6 +2,8 @@ const express = require('express');
 // const path = require('path');
 // const router = require('router');
 const bodyParser = require('body-parser');
+const crypto = require('crypto');
+const bcrypt = require('bcrypt');
 const db = require('../db/index.js');
 
 const app = express();
@@ -28,7 +30,6 @@ app.get('/api/events', (req, res) => {
 
 app.post('/api/events', (req, res) => {
   const values = Object.keys(req.body).map(key => req.body[key]);
-  console.log('Values at POST handle', values);
   db.insertQ(values, (err, results) => {
     if (err) {
       res.sendStatus(500);
@@ -37,6 +38,46 @@ app.post('/api/events', (req, res) => {
     }
   });
 });
+
+app.get('/api/users', (req, res) => {
+  db.findUser(req.body.username, (err, results) => {
+    if (err) {
+      res.sendStatus(500);
+    } else if (results.length > 0) {
+      bcrypt.compare(req.body.password, results[0].password, (error, match) => {
+        if (error) {
+          res.sendStatus(500);
+        }
+        if (match) {
+          res.send(200).json(results[0].user_id);
+        } else {
+          res.send(404);
+        }
+      });
+    } else {
+      res.send(500);
+    }
+  });
+});
+
+app.post('/api/users', (req, res) => {
+  const userInfo = Object.keys(req.body).map(key => req.body[key]);
+  const username = req.body.username;
+  const cipher = crypto.createHash('sha1');
+  cipher.update(username);
+  const userId = cipher.digest('hex');
+  userInfo.push(userId);
+  db.createUser(userInfo, (err, results) => {
+    if (err) {
+      res.sendStatus(500);
+    } else {
+      console.log(results);
+      res.status(201).json(userId);
+    }
+  });
+});
+
+
 app.listen(8080, () => {
   console.log('Listening on port 8080!');
 });

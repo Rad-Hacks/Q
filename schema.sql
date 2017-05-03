@@ -18,6 +18,18 @@ CREATE TABLE events(
   PRIMARY KEY(ID)
 );
 
+CREATE TABLE users(
+  id int NOT NULL AUTO_INCREMENT,
+  user_id varchar(100) NOT NULL,
+  username varchar(25) NOT NULL,
+  password varchar (100) NOT NULL,
+  city varchar (25) NOT NULL,
+  state varchar(2) NOT NULL,
+  phone int(10) NOT NULL,
+  contactEmail varchar(50) NOT NULL,
+  PRIMARY KEY(ID)
+);
+
 INSERT INTO events (name, amount, address, city, state, date, time, duration, contactEmail) VALUES ("Franklin's", 200, '900 E. 11th St.', 'Austin', 'TX', '2017-05-05', '11:30:00', 4, 'peter@johnson.com');
 INSERT INTO events (name, amount, address, city, state, date, time, duration, contactEmail) VALUES ("Abby's", 40, '9900 E. 11th St.', 'Dallas', 'TX', '2017-05-05', '11:30:00', 4, 'peter@johnson.com');
 INSERT INTO events (name, amount, address, city, state, date, time, duration, contactEmail) VALUES ("Fred's", 10, '800 E. 11th St.', 'Dallas', 'TX', '2017-05-05', '11:30:00', 4, 'peter@johnson.com');
