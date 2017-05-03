@@ -55,5 +55,15 @@ module.exports = {
         })
       }
     });
+  },
+
+  findUser(username, callback) {
+    connection.query(`SELECT * FROM users WHERE username = ` + username + `;`, (err, result) => {
+      if (err) {
+        callback(err, null);
+      } else {
+        callback(null, results);
+      }
+    });
   }
 };
