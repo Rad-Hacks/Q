@@ -23,6 +23,8 @@ const FilterBox = props => (
         dataSource={props.locations}
         onUpdateInput={props.setLocation}
         underlineStyle={styles.underlineStyle}
+        filter={AutoComplete.caseInsensitiveFilter}
+        maxSearchResults={10}
       />
     </MuiThemeProvider>
     <br />
