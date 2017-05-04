@@ -36,7 +36,7 @@ const FilterBox = props => (
         label="Sort $$$ → $"
         onClick={props.toggleSort}
         labelStyle={styles.labelStyle}
-        backgroundColor={styles.backgroundColor}
+        backgroundColor={styles.backgroundColor.toString()}
       />
     </MuiThemeProvider>
     <br />
@@ -45,9 +45,9 @@ const FilterBox = props => (
 );
 
 FilterBox.propTypes = {
-  locations: PropTypes.node.isRequired,
-  setLocation: PropTypes.node.isRequired,
-  toggleSort: PropTypes.node.isRequired,
+  locations: PropTypes.node,
+  setLocation: PropTypes.func.isRequired,
+  toggleSort: PropTypes.func.isRequired,
 };
 
 module.exports = FilterBox;

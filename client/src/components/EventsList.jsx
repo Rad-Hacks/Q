@@ -17,19 +17,20 @@ class EventsList extends Component {
           <p> Here are your local events: </p>
           {this.props.events.filter(event =>
             (`${event.city}, ${event.state}`) === this.props.currentLocation)
-          .sort((a, b) => a.amount - b.amount)
+          .sort((a, b) => b.amount - a.amount)
           .map(event => (
-            <EventsListItem style={{ width: '200px' }} data={event} />
+            <EventsListItem key={event.id} style={{ width: '200px' }} data={event} />
           ))}
         </div>
       );
     } else if (this.props.sort) {
+      const eventQs = this.props.events.slice();
       return (
         <div>
           <p> Please search above to find events in your area: </p>
-          {this.props.events.sort((a, b) => b.amount - a.amount)
+          {eventQs.sort((a, b) => b.amount - a.amount)
           .map(event => (
-            <EventsListItem style={{ width: '200px' }} data={event} />
+            <EventsListItem key={event.id} style={{ width: '200px' }} data={event} />
           ))}
         </div>
       );
@@ -40,7 +41,7 @@ class EventsList extends Component {
           {this.props.events.filter(event =>
             (`${event.city}, ${event.state}`) === this.props.currentLocation)
           .map(event => (
-            <EventsListItem style={{ width: '200px' }} data={event} />
+            <EventsListItem key={event.id} style={{ width: '200px' }} data={event} />
           ))}
         </div>
       );
@@ -49,7 +50,7 @@ class EventsList extends Component {
       <div>
         <p> Please search above to find events in your area </p>
         {this.props.events.map(event => (
-          <EventsListItem style={{ width: '200px' }} data={event} />
+          <EventsListItem key={event.id} style={{ width: '200px' }} data={event} />
         ))}
       </div>
     );
