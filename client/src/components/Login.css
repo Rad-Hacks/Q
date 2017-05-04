@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 @keyframes spinner {
   0% {
     transform: rotateZ(0deg);
@@ -5,6 +6,16 @@
   100% {
     transform: rotateZ(359deg);
   }
+=======
+@charset "UTF-8";
+@import 'https://fonts.googleapis.com/css?family=Noto+Sans';
+body {
+  background: radial-gradient(ellipse farthest-corner at center top, #d8dbe2 0%, #a9bcd0 100%);
+  height: 100vh;
+  font-family: "Noto Sans", sans-serif;
+  background: none;
+  /*background: url("https://hd.unsplash.com/photo-1435777940218-be0b632d06db") no-repeat center center fixed;*/
+>>>>>>> (feat) npm dep passport and passport-googleAuth
 }
 * {
   box-sizing: border-box;
