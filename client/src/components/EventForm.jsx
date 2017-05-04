@@ -7,6 +7,7 @@ import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import TextField from 'material-ui/TextField';
 import TimePicker from 'material-ui/TimePicker';
 import DatePicker from 'material-ui/DatePicker';
+import CircularProgress from 'material-ui/CircularProgress';
 import { purple500, blue500 } from 'material-ui/styles/colors';
 import PropTypes from 'prop-types';
 
@@ -49,6 +50,8 @@ const parseTime = (dateStr) => {
   return time;
 };
 
+let progressBar = null;
+
 class EventForm extends Component {
   constructor(props) {
     super(props);
@@ -90,6 +93,7 @@ class EventForm extends Component {
   }
   handleSubmit() {
     const self = this;
+    progressBar = <CircularProgress size={60} thickness={7} />;
     const eventObj = {
       user_id: self.props.userId,
       name: this.state.name,
@@ -249,6 +253,7 @@ class EventForm extends Component {
                 onChange={this.handleChangeEmail}
               />
             </div>
+            {progressBar}
             <p> {this.state.createQMsg} </p>
           </Dialog>
         </div>
