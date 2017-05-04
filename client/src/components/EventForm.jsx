@@ -111,12 +111,14 @@ class EventForm extends Component {
       url: 'http://127.0.0.1:8080/api/events',
       data: eventObj,
       success: () => {
-        self.props.handleCreateQ();
+        progressBar = null;
         self.setState({
           open: false,
         });
+        self.props.handleCreateQ();
       },
       error: (err) => {
+        progressBar = null;
         self.setState({
           createQMsg: `Error: ${err}, please try again`,
         });
