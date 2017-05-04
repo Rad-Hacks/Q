@@ -2,7 +2,7 @@ const express = require('express');
 const path = require('path');
 // const router = require('router');
 const passport = require('passport');
-const GoogleStrategy = require('passport-google-oauth').OAuth2Strate;
+const GoogleStrategy = require('passport-google-oauth').OAuth2Strategy;
 const flash = require('connect-flash');
 const morgan = require('morgan');
 const cookieParser = require('cookie-parser');
@@ -41,9 +41,9 @@ passport.use(new GoogleStrategy(
     // Typically you would query the database to find the user record
     // associated with this Google profile, then pass that object to the `done`
     // callback.
-    // User.findOrCreate({ googleId: profile.id }, (err, user) => (
-    //   done(err, user)
-    // )
+    User.findOrCreate({ googleId: profile.id }, (err, user) => (
+      done(err, user)
+    );
     return done(null, profile);
   },
 ));
