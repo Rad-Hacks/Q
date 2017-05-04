@@ -12,15 +12,8 @@ class App extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      events: [
-          {user_id: 123, name: "Franklin's", amount: 200, address: '900 E. 11th St.', city: 'Austin', state: 'TX', date: '2017-05-05', time: '11:30:00', duration: 4, contactEmail: 'bettysue@what.com'}, 
-           {user_id: 123, name: "Franklin's", amount: 200, address: '900 E. 11th St.', city: 'Austin', state: 'TX', date: '2017-05-05', time: '11:30:00', duration: 4, contactEmail: 'bettysue@what.com'}, 
-   {user_id: 123, name: "Franklin's", amount: 200, address: '900 E. 11th St.', city: 'Austin', state: 'TX', date: '2017-05-05', time: '11:30:00', duration: 4, contactEmail: 'bettysue@what.com'}, 
- {user_id: 123, name: "Franklin's", amount: 200, address: '900 E. 11th St.', city: 'Austin', state: 'TX', date: '2017-05-05', time: '11:30:00', duration: 4, contactEmail: 'bettysue@what.com'}, 
- {user_id: 123, name: "Franklin's", amount: 200, address: '900 E. 11th St.', city: 'Austin', state: 'TX', date: '2017-05-05', time: '11:30:00', duration: 4, contactEmail: 'bettysue@what.com'}, 
-
-      ],
-      locations: ['Austin, Tx'],
+      events: [],
+      locations: [],
       currentLocation: null,
       sort: false,
       loggedIn: null,
@@ -83,7 +76,8 @@ class App extends Component {
           setLocation={this.setLocation}
           toggleSort={this.toggleSort}
         />
-        <EventsList style={{width:250, margin: '0 auto'}}
+        <EventsList 
+          style={{width:250, margin: '0 auto'}}
           events={this.state.events}
           currentLocation={this.state.currentLocation}
           sort={this.state.sort}
