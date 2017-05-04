@@ -1,15 +1,16 @@
-import React, {Component} from 'react';
+import React, { Component } from 'react';
 import ReactCSSTG from 'react-addons-css-transition-group';
+import PropTypes from 'prop-types';
 import './Login.css';
 
-// Login component
-class Login extends Component {
+// Signup component
+class Signup extends Component {
   constructor(props) {
     super(props);
     this.state = {
-        isVisible: true
-      }
-      // Bindings
+      isVisible: true,
+    };
+    // Bindings
     this.handleSubmit = this.handleSubmit.bind(this);
     this.handleRemount = this.handleRemount.bind(this);
   }
@@ -17,77 +18,103 @@ class Login extends Component {
   handleSubmit(e) {
     e.preventDefault();
     this.setState({
-      isVisible: false
-    }, function() {
-      console.log(this.state.isVisible)
+      isVisible: false,
     });
     return false;
   }
   handleRemount(e) {
     this.setState({
-      isVisible: true
-    }, function() {
-      console.log(this.state.isVisible)
+      isVisible: true,
     });
     e.preventDefault();
   }
   render() {
-
     // const for React CSS transition declaration
-    let component = this.state.isVisible ? <Modal onSubmit={ this.handleSubmit } key='modal'/> : <ModalBack onClick={ this.handleRemount } key='bringitback'/>;
+    const component = this.state.isVisible ? <Modal onSubmit={this.handleSubmit} key="modal" />
+    : <ModalBack onClick={this.handleRemount} key="bringitback" />;
 
-    return <ReactCSSTG transitionName="animation" transitionAppear={true} transitionAppearTimeout={500} transitionEnterTimeout={500} transitionLeaveTimeout={300}>
-             { component }
-           </ReactCSSTG>
+    return (
+      <ReactCSSTG
+        transitionName="animation"
+        transitionAppear
+        transitionAppearTimeout={500}
+        transitionEnterTimeout={500}
+        transitionLeaveTimeout={300}
+      >
+        { component }
+      </ReactCSSTG>
+    );
   }
 }
 
 // Modal
-class Modal extends React.Component {
-  render() {
-    return <div className='Modal'>
-              <Logo />
-              <form onSubmit= { this.props.onSubmit }>
-                <Input type='text' name='username' placeholder='username' />
-                <Input type='password' name='password' placeholder='password' />
-                <button> Sign In</button>
-              </form>
-              <div className='social-signin'>
-                <button className="fb" onClick={ this.props.onClick }><i className="fa fa-facebook" aria-hidden="true"></i></button>
-                <button className="tw" onClick={ this.props.onClick }><i className="fa fa-twitter" aria-hidden="true"></i></button>
-              </div>
-                <a href='#'>Lost your password ?</a>
-           </div>
-  }
-}
+const Modal = props => (
+  <div className="Modal">
+    <Logo />
+    <form onSubmit={props.onSubmit} >
+      <Input type="text" name="username" placeholder="username" />
+      <Input type="password" name="password" placeholder="password" />
+      <button> Sign In</button>
+    </form>
+    <div className="social-signin">
+      <button className="fb" onClick={props.onClick}>
+        <i className="fa fa-facebook" aria-hidden="true" />
+      </button>
+      <button className="tw" onClick={props.onClick}>
+        <i className="fa fa-twitter" aria-hidden="true" />
+      </button>
+    </div>
+    <a href="#/"> Lost your password? </a>
+  </div>
+);
+
+Modal.propTypes = {
+  onSubmit: PropTypes.function,
+  onClick: PropTypes.function,
+};
 
 // Generic input field
-class Input extends React.Component {
-  render() {
-    return <div className='Input'>
-              <input type={ this.props.type } name={ this.props.name } placeholder={ this.props.placeholder } required autocomplete='false'/>
-              <label for={ this.props.name } ></label>
-           </div>
-  }
+const Input = props => (
+  <div className="Input">
+    <input
+      type={props.type}
+      name={props.name}
+      placeholder={props.placeholder}
+      required
+      autoComplete="false"
+    />
+    <label htmlFor={props.name} />
+  </div>
+);
 
-}
+Input.propTypes = {
+  type: PropTypes.string,
+  name: PropTypes.string,
+  placeholder: PropTypes.placeholder,
+};
 
 // Fake logo
-class Logo extends React.Component {
-  render() {
-    return <div className="logo">
-                <i className="fa fa-bug" aria-hidden="true"></i> 
-                <span> Sign up for Q </span>
-              </div>
-  }
-}
+const Logo = () => (
+  <div className="logo">
+    <i className="fa fa-bug" aria-hidden="true" />
+    <span> Sign up for Q </span>
+  </div>
+);
 
 // Button to brind the modal back
-class ModalBack extends React.Component {
-  render() {
-    return <button className="bringitback" onClick={ this.props.onClick } key={ this.props.className }>Brind the modal back !</button>
-  }
-}
+const ModalBack = props => (
+  <button
+    className="bringitback"
+    onClick={props.onClick}
+    key={props.className}
+  >
+    Bring the modal back!
+  </button>
+);
 
-export default Login;
+ModalBack.propTypes = {
+  onClick: PropTypes.function,
+  className: PropTypes.string,
+};
 
+export default Signup;
