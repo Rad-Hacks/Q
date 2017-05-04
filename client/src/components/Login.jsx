@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import ReactCSSTG from 'react-addons-css-transition-group';
-import './Signup.css';
+import PropTypes from 'prop-types';
+import './Login.css';
 
 // Login component
 class Login extends Component {
@@ -64,9 +65,14 @@ const Modal = props => (
         <i className="fa fa-twitter" aria-hidden="true" />
       </button>
     </div>
-    <a href="#">Lost your password ?</a>
+    <a href="#/">Lost your password ?</a>
   </div>
-)
+);
+
+Modal.propTypes = {
+  onSubmit: PropTypes.function,
+  onClick: PropTypes.function,
+};
 
 // Generic input field
 const Input = props => (
@@ -81,6 +87,12 @@ const Input = props => (
     <label htmlFor={props.name} />
   </div>
 );
+
+Input.propTypes = {
+  type: PropTypes.string,
+  name: PropTypes.string,
+  placeholder: PropTypes.placeholder,
+};
 
 // Fake logo
 const Logo = () => (
@@ -98,7 +110,12 @@ const ModalBack = props => (
     key={props.className}
   >
   Bring the modal back!
-</button>
+  </button>
 );
+
+ModalBack.propTypes = {
+  onClick: PropTypes.function,
+  className: PropTypes.string,
+};
 
 export default Login;
