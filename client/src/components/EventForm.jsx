@@ -10,6 +10,7 @@ import DatePicker from 'material-ui/DatePicker';
 import CircularProgress from 'material-ui/CircularProgress';
 import { purple500, blue500 } from 'material-ui/styles/colors';
 import PropTypes from 'prop-types';
+import AutoComplete from 'material-ui/AutoComplete';
 
 const GOOGLE_API_KEY = require('../config/google.js');
 
@@ -69,7 +70,7 @@ class EventForm extends Component {
       contactEmail: null,
       duration: null,
       image: null,
-      possibleLocations: null,
+      possibleLocations: [],
       placeId: null,
       placeLat: null,
       placeLng: null,
@@ -134,10 +135,10 @@ class EventForm extends Component {
     });
   }
 
-  handleChangeName(e, value) {
+  handleChangeName(value) {
     this.setState({
       name: value,
-    });
+    }, this.getAutoCompletePredictions);
   }
   handleChangeAmount(e, value) {
     this.setState({
@@ -183,20 +184,23 @@ class EventForm extends Component {
   getCoordinates() {
     $.get(`https://maps.googleapis.com/maps/api/geocode/json?address=${this.state.city},+${this.state.state}'&key=${GOOGLE_API_KEY}`)
     .then((res) => {
-      console.log(GOOGLE_API_KEY);
-      console.log('API RESULTS ---->', res);
       this.setState({
         placeLat: res.results[0].geometry.location.lat,
         placeLng: res.results[0].geometry.location.lng,
       });
-      console.log(this.state.placeLat, this.state.placeLng);
     });
   }
 
-  // getAutoComplete() {
-  //   fetch('https://maps.googleapis.com/maps/api/place/autocomplete/xml?input=Amoeba&types=establishment&location=37.76999,-122.44696&radius=500&key=YOUR_API_KEY')
-  // }
-  //
+  getAutoCompletePredictions() {
+    $.get(`https://maps.googleapis.com/maps/api/place/autocomplete/json?input=${this.state.name}&types=establishment&location=${this.state.placeLat},${this.state.placeLng}&radius=500&key=${GOOGLE_API_KEY}`)
+    .then((res) => {
+      this.setState({
+        possibleLocations: res.predictions.map(place => place.description),
+      });
+      console.log(this.state.possibleLocations);
+    });
+  }
+
   // getQsFromDB() {
   //   fetch('http://localhost:8080/api/events')
   //     .then(res => res.json())
@@ -248,13 +252,23 @@ class EventForm extends Component {
                 floatingLabelFocusStyle={styles.floatingLabelFocusStyle}
                 onChange={this.handleChangeState}
               /><br />
-              <TextField
-                floatingLabelText="Event Name"
+              { /* <TextField
+                floatingLabelText="Establishment Name"
                 floatingLabelStyle={styles.floatingLabelStyle}
                 floatingLabelFocusStyle={styles.floatingLabelFocusStyle}
                 errorText="This field is required."
                 errorStyle={styles.errorStyle}
-                onChange={this.handleChangeName}
+                onChange={this.handleChangeName} */ }
+              <AutoComplete
+                floatingLabelText="Establishment Name"
+                filter={AutoComplete.caseInsensitiveFilter}
+                floatingLabelStyle={styles.floatingLabelStyle}
+                floatingLabelFocusStyle={styles.floatingLabelFocusStyle}
+                errorText="This field is required."
+                errorStyle={styles.errorStyle}
+                dataSource={this.state.possibleLocations}
+                onUpdateInput={this.handleChangeName}
+                fullwidth
               /><br />
               <TextField
                 floatingLabelText="Amount"
