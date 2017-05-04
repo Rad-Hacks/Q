@@ -15,18 +15,19 @@ module.exports = {
   insertQ(values, callback) {
     const queryString = `INSERT INTO events (user_id, name, amount, address, city, state, date, time, duration, contactEmail)
     VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?);`;
-
+    console.log(values);
     connection.query(queryString, values, (err, results) => {
       if (err) {
         callback(err, null);
       } else {
+        console.log(results);
         callback(null, results);
       }
     });
   },
 
   getAll(callback) {
-    connection.query('SELECT * FROM events', (err, results) => {
+    connection.query('SELECT * FROM events ORDER BY id DESC', (err, results) => {
       if (err) {
         callback(err, null);
       } else {
@@ -37,28 +38,29 @@ module.exports = {
 
 
   createUser(values, callback) {
-    var password = values[1];
-    bcrypt.hash(password, saltRounds, (err, hash) => {
+    const password = values[1];
+    let vals = values.slice();
+    bcrypt.hash(password, 10, (err, hash) => {
       if (err) {
         callback(err, console.log('Password cannot be hashed'));
       } else {
-        values[1] = hash;
+        vals[1] = hash;
         const queryString = `INSERT INTO users (username, password, city, state, phone, contactEmail, user_id)
         VALUES (?, ?, ?, ?, ?, ?, ?);`;
 
-        connection.query(queryString, values, (err, results) => {
-          if (err) {
-            callback(err, null);
+        connection.query(queryString, vals, (error, results) => {
+          if (error) {
+            callback(error, null);
           } else {
             callback(null, results);
           }
-        })
+        });
       }
     });
   },
 
   findUser(username, callback) {
-    connection.query(`SELECT * FROM users WHERE username = ` + username + `;`, (err, result) => {
+    connection.query(`SELECT * FROM users WHERE username = ${username};`, (err, results) => {
       if (err) {
         callback(err, null);
       } else {
