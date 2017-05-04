@@ -16,7 +16,7 @@ const EventsListItem = props => (
       />
       <CardText expandable>
         Address: {props.data.address}<br />
-        Date: {props.data.date}<br />
+        Date: {props.data.date.slice(0, 10)}<br />
         Time: {props.data.time}<br />
         Duration: {props.data.duration + ' hours'}<br />
         Contact: {props.data.contactEmail}<br />
