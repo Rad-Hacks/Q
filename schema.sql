@@ -28,7 +28,7 @@ CREATE TABLE events(
   duration int (10) NOT NULL,
   contactEmail  varchar (50) NOT NULL,
   PRIMARY KEY(ID),
-  FOREIGN KEY(USER_ID) REFERENCES USERS(USER_ID)
+  FOREIGN KEY(USER_ID) REFERENCES users(USER_ID)
 );
 
 INSERT INTO users (user_id, username, password, city, state, phone, contactEmail) VALUES (123, 'bettysue', 'password123', 'Austin', 'TX', 5123333333, 'bettysue@what.com');
