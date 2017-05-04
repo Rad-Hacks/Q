@@ -20,7 +20,7 @@ class App extends Component {
  {user_id: 123, name: "Franklin's", amount: 200, address: '900 E. 11th St.', city: 'Austin', state: 'TX', date: '2017-05-05', time: '11:30:00', duration: 4, contactEmail: 'bettysue@what.com'}, 
 
       ],
-      locations: [],
+      locations: ['Austin, Tx'],
       currentLocation: null,
       sort: false,
       loggedIn: null,
@@ -83,7 +83,7 @@ class App extends Component {
           setLocation={this.setLocation}
           toggleSort={this.toggleSort}
         />
-        <EventsList
+        <EventsList style={{width:250, margin: '0 auto'}}
           events={this.state.events}
           currentLocation={this.state.currentLocation}
           sort={this.state.sort}
