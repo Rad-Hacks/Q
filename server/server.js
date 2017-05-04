@@ -1,17 +1,33 @@
 const express = require('express');
 // const path = require('path');
 // const router = require('router');
+const passport = require('passport');
+const flash = require('connect-flash');
+const morgan = require('morgan');
+const cookieParser = require('cookie-parser');
 const bodyParser = require('body-parser');
+const session = require('express-session');
 const crypto = require('crypto');
 const bcrypt = require('bcrypt');
 const db = require('../db/index.js');
 
 const app = express();
-
-app.use(bodyParser.json());
+app.use(morgan('dev')); // log every request to the console
+app.use(cookieParser()); // read cookies (need for auth);
+app.use(bodyParser.json()); // get info from html forms;
 app.use(bodyParser.urlencoded({
   extended: true,
 }));
+
+app.use(session({
+  secret: 'iloveqs',
+  resave: true,
+  saveUninitialized: true,
+}));
+app.use(passport.initialize());
+app.use(passport.session()); // persistent login sessions
+app.use(flash()); // use connect-flash for flash messages stored in session
+
 app.use((req, res, next) => {
   res.header('Access-Control-Allow-Origin', '*');
   res.header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept');
