@@ -1,14 +1,14 @@
-import React, {Component} from 'react';
+import React, { Component } from 'react';
 import ReactCSSTG from 'react-addons-css-transition-group';
 import './Login.css';
 
-// Login component
-class Login extends Component {
+// Signup component
+class Signup extends Component {
   constructor(props) {
     super(props);
     this.state = {
-        isVisible: true
-      }
+      isVisible: true,
+    };
       // Bindings
     this.handleSubmit = this.handleSubmit.bind(this);
     this.handleRemount = this.handleRemount.bind(this);
@@ -76,7 +76,7 @@ class Input extends React.Component {
 class Logo extends React.Component {
   render() {
     return <div className="logo">
-                <i className="fa fa-bug" aria-hidden="true"></i> 
+                <i className="fa fa-bug" aria-hidden="true"></i>
                 <span> Sign up for Q </span>
               </div>
   }
@@ -90,4 +90,3 @@ class ModalBack extends React.Component {
 }
 
 export default Login;
-

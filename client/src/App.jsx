@@ -76,8 +76,8 @@ class App extends Component {
           setLocation={this.setLocation}
           toggleSort={this.toggleSort}
         />
-        <EventsList 
-          style={{width:250, margin: '0 auto'}}
+        <EventsList
+          style={{ width: 250, margin: '0 auto' }}
           events={this.state.events}
           currentLocation={this.state.currentLocation}
           sort={this.state.sort}
