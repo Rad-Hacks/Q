@@ -66,6 +66,7 @@ class EventForm extends Component {
       time: null,
       contactEmail: null,
       duration: null,
+      image: null,
     };
     this.handleChangeName = this.handleChangeName.bind(this);
     this.handleChangeAmount = this.handleChangeAmount.bind(this);
@@ -105,6 +106,7 @@ class EventForm extends Component {
       time: parseTime(this.state.time.toString()),
       duration: this.state.duration,
       contactEmail: this.state.contactEmail,
+      image: this.state.image,
     };
     $.ajax({
       type: 'POST',

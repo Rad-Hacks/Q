@@ -13,8 +13,8 @@ connection.connect();
 
 module.exports = {
   insertQ(values, callback) {
-    const queryString = `INSERT INTO events (user_id, name, amount, address, city, state, date, time, duration, contactEmail)
-    VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?);`;
+    const queryString = `INSERT INTO events (user_id, name, amount, address, city, state, date, time, duration, contactEmail, image)
+    VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);`;
     console.log(values);
     connection.query(queryString, values, (err, results) => {
       if (err) {
