@@ -12,7 +12,14 @@ class App extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      events: [],
+      events: [
+          {user_id: 123, name: "Franklin's", amount: 200, address: '900 E. 11th St.', city: 'Austin', state: 'TX', date: '2017-05-05', time: '11:30:00', duration: 4, contactEmail: 'bettysue@what.com'}, 
+           {user_id: 123, name: "Franklin's", amount: 200, address: '900 E. 11th St.', city: 'Austin', state: 'TX', date: '2017-05-05', time: '11:30:00', duration: 4, contactEmail: 'bettysue@what.com'}, 
+   {user_id: 123, name: "Franklin's", amount: 200, address: '900 E. 11th St.', city: 'Austin', state: 'TX', date: '2017-05-05', time: '11:30:00', duration: 4, contactEmail: 'bettysue@what.com'}, 
+ {user_id: 123, name: "Franklin's", amount: 200, address: '900 E. 11th St.', city: 'Austin', state: 'TX', date: '2017-05-05', time: '11:30:00', duration: 4, contactEmail: 'bettysue@what.com'}, 
+ {user_id: 123, name: "Franklin's", amount: 200, address: '900 E. 11th St.', city: 'Austin', state: 'TX', date: '2017-05-05', time: '11:30:00', duration: 4, contactEmail: 'bettysue@what.com'}, 
+
+      ],
       locations: [],
       currentLocation: null,
       sort: false,
