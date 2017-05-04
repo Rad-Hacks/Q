@@ -265,7 +265,7 @@ class EventForm extends Component {
 }
 
 EventForm.propTypes = {
-  userId: PropTypes.func.isRequired,
+  userId: PropTypes.string.isRequired,
 };
 
 export default EventForm;

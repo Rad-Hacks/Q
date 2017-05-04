@@ -9,7 +9,7 @@ const EventsListItem = props => (
       <CardHeader
         title={props.data.name}
         titleStyle={{ fontSize: '16px' }}
-        subtitle={'$' + props.data.amount}
+        subtitle={`$${props.data.amount}`}
         subtitleStyle={{ fontSize: '20px', color: 'green' }}
         actAsExpander
         showExpandableButton
@@ -18,7 +18,7 @@ const EventsListItem = props => (
         Address: {props.data.address}<br />
         Date: {props.data.date.slice(0, 10)}<br />
         Time: {props.data.time}<br />
-        Duration: {props.data.duration + ' hours'}<br />
+        Duration: {`${props.data.duration} hours`}<br />
         Contact: {props.data.contactEmail}<br />
       </CardText>
     </Card>
