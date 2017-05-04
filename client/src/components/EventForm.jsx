@@ -11,6 +11,8 @@ import CircularProgress from 'material-ui/CircularProgress';
 import { purple500, blue500 } from 'material-ui/styles/colors';
 import PropTypes from 'prop-types';
 
+const GOOGLE_API_KEY = require('../config/google.js');
+
 const styles = {
   errorStyle: {
     color: purple500,
@@ -67,6 +69,10 @@ class EventForm extends Component {
       contactEmail: null,
       duration: null,
       image: null,
+      possibleLocations: null,
+      placeId: null,
+      placeLat: null,
+      placeLng: null,
     };
     this.handleChangeName = this.handleChangeName.bind(this);
     this.handleChangeAmount = this.handleChangeAmount.bind(this);
@@ -151,7 +157,7 @@ class EventForm extends Component {
   handleChangeState(e, value) {
     this.setState({
       state: value,
-    });
+    }, this.getCoordinates());
   }
   handleChangeDatePicker(event, date) {
     this.setState({
@@ -173,6 +179,37 @@ class EventForm extends Component {
       contactEmail: value,
     });
   }
+
+  getCoordinates() {
+    $.get(`https://maps.googleapis.com/maps/api/geocode/json?address=${this.state.city},+${this.state.state}'&key=${GOOGLE_API_KEY}`)
+    .then((res) => {
+      console.log(GOOGLE_API_KEY);
+      console.log('API RESULTS ---->', res);
+      this.setState({
+        placeLat: res.results[0].geometry.location.lat,
+        placeLng: res.results[0].geometry.location.lng,
+      });
+      console.log(this.state.placeLat, this.state.placeLng);
+    });
+  }
+
+  // getAutoComplete() {
+  //   fetch('https://maps.googleapis.com/maps/api/place/autocomplete/xml?input=Amoeba&types=establishment&location=37.76999,-122.44696&radius=500&key=YOUR_API_KEY')
+  // }
+  //
+  // getQsFromDB() {
+  //   fetch('http://localhost:8080/api/events')
+  //     .then(res => res.json())
+  //     .then((json) => {
+  //       this.setState({
+  //         events: json,
+  //         locations: json.map(event => `${event.city}, ${event.state}`).filter((elem, index, self) =>
+  //           index === self.indexOf(elem)),
+  //       });
+  //     });
+  // }
+
+
   render() {
     const actions = [
       <FlatButton
@@ -200,6 +237,18 @@ class EventForm extends Component {
           >
             <div>
               <TextField
+                floatingLabelText="City"
+                floatingLabelStyle={styles.floatingLabelStyle}
+                floatingLabelFocusStyle={styles.floatingLabelFocusStyle}
+                onChange={this.handleChangeCity}
+              /><br />
+              <TextField
+                floatingLabelText="State (example: TX for Texas)"
+                floatingLabelStyle={styles.floatingLabelStyle}
+                floatingLabelFocusStyle={styles.floatingLabelFocusStyle}
+                onChange={this.handleChangeState}
+              /><br />
+              <TextField
                 floatingLabelText="Event Name"
                 floatingLabelStyle={styles.floatingLabelStyle}
                 floatingLabelFocusStyle={styles.floatingLabelFocusStyle}
@@ -220,18 +269,6 @@ class EventForm extends Component {
                 floatingLabelStyle={styles.floatingLabelStyle}
                 floatingLabelFocusStyle={styles.floatingLabelFocusStyle}
                 onChange={this.handleChangeAddress}
-              /><br />
-              <TextField
-                floatingLabelText="City"
-                floatingLabelStyle={styles.floatingLabelStyle}
-                floatingLabelFocusStyle={styles.floatingLabelFocusStyle}
-                onChange={this.handleChangeCity}
-              /><br />
-              <TextField
-                floatingLabelText="State (example: TX for Texas)"
-                floatingLabelStyle={styles.floatingLabelStyle}
-                floatingLabelFocusStyle={styles.floatingLabelFocusStyle}
-                onChange={this.handleChangeState}
               /><br />
               <DatePicker
                 hintText="Select Date"

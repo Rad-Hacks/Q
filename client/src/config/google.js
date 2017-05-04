@@ -1,1 +1,2 @@
-window.GOOGLE_API_KEY = 'AIzaSyDS-81iezxiDjMeFhRnAXpCI_xGU6TtnRs';
+module.exports = 'AIzaSyDS-81iezxiDjMeFhRnAXpCI_xGU6TtnRs';
+// Google API Key
