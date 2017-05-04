@@ -55,7 +55,7 @@ const Modal = props => (
     <form onSubmit={props.onSubmit} >
       <Input type="text" name="username" placeholder="username" />
       <Input type="password" name="password" placeholder="password" />
-      <button> Sign In</button>
+      <button> Login </button>
     </form>
     <div className="social-signin">
       <button className="fb" onClick={props.onClick}>
