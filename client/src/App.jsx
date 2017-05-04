@@ -16,15 +16,19 @@ class App extends Component {
       locations: [],
       currentLocation: null,
       sort: false,
-      createQMsg: true,
       loggedIn: null,
     };
+    this.getQsFromDB = this.getQsFromDB.bind(this);
     this.setLocation = this.setLocation.bind(this);
     this.toggleSort = this.toggleSort.bind(this);
     this.handleCreateQ = this.handleCreateQ.bind(this);
   }
 
   componentDidMount() {
+    this.getQsFromDB();
+  }
+
+  getQsFromDB() {
     fetch('http://localhost:8080/api/events')
       .then(res => res.json())
       .then((json) => {
@@ -35,7 +39,6 @@ class App extends Component {
         });
       });
   }
-
   setLocation(loc) {
     this.setState({
       currentLocation: loc,
@@ -49,9 +52,7 @@ class App extends Component {
   }
 
   handleCreateQ() {
-    this.setState({
-      createQMsg: !this.state.createQMsg,
-    });
+    this.getQsFromDB();
   }
 
   render() {
