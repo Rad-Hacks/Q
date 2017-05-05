@@ -68,7 +68,6 @@ class Signup extends Component {
       </form>
     );
   }
-
 }
 
 export default Signup;
