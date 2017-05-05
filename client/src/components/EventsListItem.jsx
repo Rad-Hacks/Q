@@ -25,7 +25,7 @@ class EventsListItem extends Component {
             actAsExpander
             showExpandableButton
           />
-          <div><img src={`https://maps.googleapis.com/maps/api/place/photo?maxwidth=200&maxheight=200&photoreference=${this.props.data.image}&key=${GOOGLE_API_KEY}`} /></div>
+          <div><img src={`https://maps.googleapis.com/maps/api/place/photo?maxwidth=400&maxheight=400&photoreference=${this.props.data.image}&key=${GOOGLE_API_KEY}`} width={'300'} height={'200'} /></div>
           <CardText expandable>
             Address: {this.props.data.address}<br />
             Date: {this.props.data.date.slice(0, 10)}<br />
