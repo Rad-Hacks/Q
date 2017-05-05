@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import './Login.css';
+import googleBtn from './btn_google_signin.png';
 
 class Login extends Component {
   constructor(props) {
@@ -41,5 +42,4 @@ class Login extends Component {
     );
   }
 }
-
 export default Login;
