@@ -3,7 +3,6 @@ const path = require('path');
 // const router = require('router');
 const passport = require('passport');
 const GoogleStrategy = require('passport-google-oauth').OAuth2Strategy;
-const flash = require('connect-flash');
 const morgan = require('morgan');
 const cookieParser = require('cookie-parser');
 const bodyParser = require('body-parser');
@@ -11,21 +10,31 @@ const session = require('express-session');
 const crypto = require('crypto');
 const bcrypt = require('bcrypt');
 const db = require('../db/index.js');
-const authConfig = require('./config/passport')(passport);
+const authConfig = require('./config/auth');
 
-
+const extractProfile = (profile) => {
+  let imageURL = '';
+  if (profile.photos && profile.photos.length) {
+    imageURL = profile.photos[0].value;
+  }
+  return {
+    id: profile.id,
+    displayName: profile.displayName,
+    image: imageURL,
+  };
+};
 //   For persistent logins with sessions, Passport needs to serialize users into
 //   and deserialize users out of the session. Typically, this is as simple as
 //   storing the user ID when serializing, and finding the user by ID when
 //   deserializing.
-passport.serializeUser((user, done) => {
-  // done(null, user.id);
-  done(null, user);
-});
-
-passport.deserializeUser((obj, done) => {
-  done(null, obj);
-});
+// passport.serializeUser((user, done) => {
+//   // done(null, user.id);
+//   done(null, user);
+// });
+//
+// passport.deserializeUser((obj, done) => {
+//   done(null, obj);
+// });
 
 // Use the GoogleStrategy within Passport.
 //   Strategies in Passport require a `verify` function, which accept
@@ -33,20 +42,43 @@ passport.deserializeUser((obj, done) => {
 //   profile), and invoke a callback with a user object.
 //   See http://passportjs.org/docs/configure#verify-callback
 passport.use(new GoogleStrategy(
+  authConfig.googleAuth,
   // Use the API access settings stored in ./config/auth.json. You must create
   // an OAuth 2 client ID and secret at: https://console.developers.google.com
-  authConfig.googleAuth,
-  (accessToken, refreshToken, profile, done) => {
+  function process(accessToken, refreshToken, profile, done) {
     // example with mongodb---> need to find user in db or create if not exists,
     // Typically you would query the database to find the user record
     // associated with this Google profile, then pass that object to the `done`
     // callback.
-    User.findOrCreate({ googleId: profile.id }, (err, user) => (
-      done(err, user)
-    );
+    // User.findOrCreate({ googleId: profile.id }, (err, user) => (
+    //   done(err, user)
+    // ));
+    // db.findUser(profile.displayName, (err, found) => {
+    //   if (err) {
+    //     return done(err, null);
+    //   } else if (found.length > 0) {
+    //     return done(null, found.length[0]);
+    //   }
+    //   // const userObj = {
+    //   //   username: profile.displayName,
+    //   //   password: '',
+    //   //   city: '',
+    //   //   state: '',
+    //   //   phone: '',
+    //   //   contactEmail: '',
+    //   //   user_id: profile.id,
+    //   // };
+    //   const userParams = [profile.displayName, '', '', '', '', '', profile.id];
+    //   db.createUser(userParams, (error, resp) => {
+    //     if (error) {
+    //       return done(error, null);
+    //     }
+    //     return done(null, resp);
+    //   });
+    // });
+    console.log(extractProfile(profile));
     return done(null, profile);
-  },
-));
+  }));
 
 const app = express();
 app.use(morgan('dev')); // log every request to the console
@@ -64,7 +96,6 @@ app.use(session({
 
 app.use(passport.initialize());
 app.use(passport.session()); // persistent login sessions
-app.use(flash()); // use connect-flash for flash messages stored in session
 app.use(express.static(path.join(__dirname, '/../server/client/public')));
 app.use((req, res, next) => {
   res.header('Access-Control-Allow-Origin', '*');
@@ -131,15 +162,29 @@ app.post('/api/users', (req, res) => {
   });
 });
 
-app.get('/auth/google', passport.authenticate('google', { scope: ['profile', 'email'] }));
+// GET /auth/google
+// app.get('/auth/google',
+//   passport.authenticate('google', { scope: ['https://www.googleapis.com/auth/plus.login https://www.googleapis.com/auth/userinfo.email https://www.googleapis.com/auth/userinfo.profile'] }));
+//   //'openid email profile'
+//   //https://www.googleapis.com/auth/userinfo.email https://www.googleapis.com/auth/userinfo.profile
+//
+// app.get('/auth/google/callback',
+//   passport.authenticate('google', {
+//     successRedirect: '/profile',
+//     failureRedirect: '/login',
+//   }));
+//
+app.get('/auth/google',
+    passport.authenticate('google', { scope: ['profile', 'email'] })
+);
+
 app.get('/auth/google/callback',
-  passport('google', {
-    failuredirect: '/login',
-  }),
-  (req, res) => {
-    // Authenticated successfully
-    res.redirect('/');
-  });
+    passport.authenticate('google', {
+      successRedirect: '/',
+      failureRedirect: '/login',
+    })
+);
+
 
 app.listen(8080, () => {
   console.log('Listening on port 8080!');
