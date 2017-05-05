@@ -39,7 +39,7 @@ module.exports = {
 
   createUser(values, callback) {
     const password = values[1];
-    let vals = values.slice();
+    const vals = values.slice();
     bcrypt.hash(password, 10, (err, hash) => {
       if (err) {
         callback(err, console.log('Password cannot be hashed'));
@@ -67,5 +67,5 @@ module.exports = {
         callback(null, results);
       }
     });
-  }
+  },
 };
