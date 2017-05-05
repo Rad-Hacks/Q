@@ -207,13 +207,12 @@ class EventForm extends Component {
     const id = this.state.possibleIds[0];
     $.get(`https://maps.googleapis.com/maps/api/place/details/json?placeid=${id}&key=${GOOGLE_API_KEY}`)
     .then((res) => {
-      console.log(res);
       this.setState({
         name: res.result.name,
         address: res.result.formatted_address.split(',')[0],
         city: res.result.formatted_address.split(',')[1],
         state: res.result.formatted_address.split(',')[2].substring(0, 3),
-        image: res.result.photos[0].html_attributions[0],
+        image: res.result.photos[0].photo_reference,
       });
     });
   }

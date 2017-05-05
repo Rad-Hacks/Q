@@ -27,7 +27,7 @@ CREATE TABLE events(
   time time NOT NULL,
   duration int (10) NOT NULL,
   contactEmail  varchar (40) NOT NULL,
-  image varchar (100),
+  image varchar (200),
   PRIMARY KEY(ID),
   FOREIGN KEY(USER_ID) REFERENCES users(USER_ID)
 );
