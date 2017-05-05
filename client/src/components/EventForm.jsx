@@ -105,7 +105,7 @@ class EventForm extends Component {
     const self = this;
     progressBar = <CircularProgress size={60} thickness={7} />;
     const eventObj = {
-      user_id: self.props.userId,
+      user_id: this.props.userId,
       name: this.state.name,
       amount: this.state.amount,
       address: this.state.address,
@@ -207,14 +207,13 @@ class EventForm extends Component {
     const id = this.state.possibleIds[0];
     $.get(`https://maps.googleapis.com/maps/api/place/details/json?placeid=${id}&key=${GOOGLE_API_KEY}`)
     .then((res) => {
+      console.log(res);
       this.setState({
         name: res.result.name,
-        address: `${res.result.address_components[0].long_name} ${res.result.address_components[1].long_name}`,
-        city: res.result.address_components[3].long_name,
-        state: res.result.address_components[5].short_name,
+        address: res.result.formatted_address.split(',')[0],
+        city: res.result.formatted_address.split(',')[1],
+        state: res.result.formatted_address.split(',')[2].substring(0, 3),
         image: res.result.photos[0].html_attributions[0],
-      }, function () {
-        console.log(this.state);
       });
     });
   }
@@ -250,12 +249,14 @@ class EventForm extends Component {
                 floatingLabelStyle={styles.floatingLabelStyle}
                 floatingLabelFocusStyle={styles.floatingLabelFocusStyle}
                 onChange={this.handleChangeCity}
+                value={this.state.city}
               /><br />
               <TextField
                 floatingLabelText="State (example: TX for Texas)"
                 floatingLabelStyle={styles.floatingLabelStyle}
                 floatingLabelFocusStyle={styles.floatingLabelFocusStyle}
                 onChange={this.handleChangeState}
+                value={this.state.state}
               /><br />
               <AutoComplete
                 fullWidth
@@ -268,6 +269,7 @@ class EventForm extends Component {
                 dataSource={this.state.possibleLocations}
                 onUpdateInput={this.handleChangeName}
                 onNewRequest={this.getEstablishmentInfo}
+                value={this.state.name}
               /><br />
               <TextField
                 floatingLabelText="Amount"
@@ -282,6 +284,7 @@ class EventForm extends Component {
                 floatingLabelStyle={styles.floatingLabelStyle}
                 floatingLabelFocusStyle={styles.floatingLabelFocusStyle}
                 onChange={this.handleChangeAddress}
+                value={this.state.address}
               /><br />
               <DatePicker
                 hintText="Select Date"
