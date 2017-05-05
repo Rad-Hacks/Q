@@ -10,6 +10,9 @@ import DatePicker from 'material-ui/DatePicker';
 import CircularProgress from 'material-ui/CircularProgress';
 import { purple500, blue500 } from 'material-ui/styles/colors';
 import PropTypes from 'prop-types';
+import AutoComplete from 'material-ui/AutoComplete';
+
+const GOOGLE_API_KEY = require('../config/google.js');
 
 const styles = {
   errorStyle: {
@@ -66,6 +69,12 @@ class EventForm extends Component {
       time: null,
       contactEmail: null,
       duration: null,
+      image: null,
+      possibleLocations: [],
+      possibleIds: [],
+      placeId: null,
+      placeLat: null,
+      placeLng: null,
     };
     this.handleChangeName = this.handleChangeName.bind(this);
     this.handleChangeAmount = this.handleChangeAmount.bind(this);
@@ -79,6 +88,7 @@ class EventForm extends Component {
     this.handleClose = this.handleClose.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
     this.handleOpen = this.handleOpen.bind(this);
+    this.getEstablishmentInfo = this.getEstablishmentInfo.bind(this);
   }
 
   handleOpen() {
@@ -95,7 +105,7 @@ class EventForm extends Component {
     const self = this;
     progressBar = <CircularProgress size={60} thickness={7} />;
     const eventObj = {
-      user_id: self.props.userId,
+      user_id: this.props.userId,
       name: this.state.name,
       amount: this.state.amount,
       address: this.state.address,
@@ -105,6 +115,7 @@ class EventForm extends Component {
       time: parseTime(this.state.time.toString()),
       duration: this.state.duration,
       contactEmail: this.state.contactEmail,
+      image: this.state.image,
     };
     $.ajax({
       type: 'POST',
@@ -126,10 +137,10 @@ class EventForm extends Component {
     });
   }
 
-  handleChangeName(e, value) {
+  handleChangeName(value) {
     this.setState({
       name: value,
-    });
+    }, this.getAutoCompletePredictions);
   }
   handleChangeAmount(e, value) {
     this.setState({
@@ -149,7 +160,7 @@ class EventForm extends Component {
   handleChangeState(e, value) {
     this.setState({
       state: value,
-    });
+    }, this.getCoordinates());
   }
   handleChangeDatePicker(event, date) {
     this.setState({
@@ -171,6 +182,41 @@ class EventForm extends Component {
       contactEmail: value,
     });
   }
+
+  getCoordinates() {
+    $.get(`https://maps.googleapis.com/maps/api/geocode/json?address=${this.state.city},+${this.state.state}'&key=${GOOGLE_API_KEY}`)
+    .then((res) => {
+      this.setState({
+        placeLat: res.results[0].geometry.location.lat,
+        placeLng: res.results[0].geometry.location.lng,
+      });
+    });
+  }
+
+  getAutoCompletePredictions() {
+    $.get(`https://maps.googleapis.com/maps/api/place/autocomplete/json?input=${this.state.name}&types=establishment&location=${this.state.placeLat},${this.state.placeLng}&radius=500&key=${GOOGLE_API_KEY}`)
+    .then((res) => {
+      this.setState({
+        possibleLocations: res.predictions.map(place => place.description),
+        possibleIds: res.predictions.map(place => place.place_id),
+      });
+    });
+  }
+
+  getEstablishmentInfo() {
+    const id = this.state.possibleIds[0];
+    $.get(`https://maps.googleapis.com/maps/api/place/details/json?placeid=${id}&key=${GOOGLE_API_KEY}`)
+    .then((res) => {
+      this.setState({
+        name: res.result.name,
+        address: res.result.formatted_address.split(',')[0],
+        city: res.result.formatted_address.split(',')[1],
+        state: res.result.formatted_address.split(',')[2].substring(0, 3),
+        image: res.result.photos[0].photo_reference,
+      });
+    });
+  }
+
   render() {
     const actions = [
       <FlatButton
@@ -198,12 +244,31 @@ class EventForm extends Component {
           >
             <div>
               <TextField
-                floatingLabelText="Event Name"
+                floatingLabelText="City"
+                floatingLabelStyle={styles.floatingLabelStyle}
+                floatingLabelFocusStyle={styles.floatingLabelFocusStyle}
+                onChange={this.handleChangeCity}
+                value={this.state.city}
+              /><br />
+              <TextField
+                floatingLabelText="State (example: TX for Texas)"
+                floatingLabelStyle={styles.floatingLabelStyle}
+                floatingLabelFocusStyle={styles.floatingLabelFocusStyle}
+                onChange={this.handleChangeState}
+                value={this.state.state}
+              /><br />
+              <AutoComplete
+                fullWidth
+                floatingLabelText="Establishment Name"
+                filter={AutoComplete.caseInsensitiveFilter}
                 floatingLabelStyle={styles.floatingLabelStyle}
                 floatingLabelFocusStyle={styles.floatingLabelFocusStyle}
                 errorText="This field is required."
                 errorStyle={styles.errorStyle}
-                onChange={this.handleChangeName}
+                dataSource={this.state.possibleLocations}
+                onUpdateInput={this.handleChangeName}
+                onNewRequest={this.getEstablishmentInfo}
+                value={this.state.name}
               /><br />
               <TextField
                 floatingLabelText="Amount"
@@ -218,18 +283,7 @@ class EventForm extends Component {
                 floatingLabelStyle={styles.floatingLabelStyle}
                 floatingLabelFocusStyle={styles.floatingLabelFocusStyle}
                 onChange={this.handleChangeAddress}
-              /><br />
-              <TextField
-                floatingLabelText="City"
-                floatingLabelStyle={styles.floatingLabelStyle}
-                floatingLabelFocusStyle={styles.floatingLabelFocusStyle}
-                onChange={this.handleChangeCity}
-              /><br />
-              <TextField
-                floatingLabelText="State (example: TX for Texas)"
-                floatingLabelStyle={styles.floatingLabelStyle}
-                floatingLabelFocusStyle={styles.floatingLabelFocusStyle}
-                onChange={this.handleChangeState}
+                value={this.state.address}
               /><br />
               <DatePicker
                 hintText="Select Date"
