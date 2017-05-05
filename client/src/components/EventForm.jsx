@@ -71,6 +71,7 @@ class EventForm extends Component {
       duration: null,
       image: null,
       possibleLocations: [],
+      possibleIds: [],
       placeId: null,
       placeLat: null,
       placeLng: null,
@@ -87,6 +88,7 @@ class EventForm extends Component {
     this.handleClose = this.handleClose.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
     this.handleOpen = this.handleOpen.bind(this);
+    this.getEstablishmentInfo = this.getEstablishmentInfo.bind(this);
   }
 
   handleOpen() {
@@ -196,23 +198,26 @@ class EventForm extends Component {
     .then((res) => {
       this.setState({
         possibleLocations: res.predictions.map(place => place.description),
+        possibleIds: res.predictions.map(place => place.place_id),
       });
-      console.log(this.state.possibleLocations);
     });
   }
 
-  // getQsFromDB() {
-  //   fetch('http://localhost:8080/api/events')
-  //     .then(res => res.json())
-  //     .then((json) => {
-  //       this.setState({
-  //         events: json,
-  //         locations: json.map(event => `${event.city}, ${event.state}`).filter((elem, index, self) =>
-  //           index === self.indexOf(elem)),
-  //       });
-  //     });
-  // }
-
+  getEstablishmentInfo() {
+    const id = this.state.possibleIds[0];
+    $.get(`https://maps.googleapis.com/maps/api/place/details/json?placeid=${id}&key=${GOOGLE_API_KEY}`)
+    .then((res) => {
+      this.setState({
+        name: res.result.name,
+        address: `${res.result.address_components[0].long_name} ${res.result.address_components[1].long_name}`,
+        city: res.result.address_components[3].long_name,
+        state: res.result.address_components[5].short_name,
+        image: res.result.photos[0].html_attributions[0],
+      }, function () {
+        console.log(this.state);
+      });
+    });
+  }
 
   render() {
     const actions = [
@@ -252,14 +257,8 @@ class EventForm extends Component {
                 floatingLabelFocusStyle={styles.floatingLabelFocusStyle}
                 onChange={this.handleChangeState}
               /><br />
-              { /* <TextField
-                floatingLabelText="Establishment Name"
-                floatingLabelStyle={styles.floatingLabelStyle}
-                floatingLabelFocusStyle={styles.floatingLabelFocusStyle}
-                errorText="This field is required."
-                errorStyle={styles.errorStyle}
-                onChange={this.handleChangeName} */ }
               <AutoComplete
+                fullWidth
                 floatingLabelText="Establishment Name"
                 filter={AutoComplete.caseInsensitiveFilter}
                 floatingLabelStyle={styles.floatingLabelStyle}
@@ -268,7 +267,7 @@ class EventForm extends Component {
                 errorStyle={styles.errorStyle}
                 dataSource={this.state.possibleLocations}
                 onUpdateInput={this.handleChangeName}
-                fullwidth
+                onNewRequest={this.getEstablishmentInfo}
               /><br />
               <TextField
                 floatingLabelText="Amount"
