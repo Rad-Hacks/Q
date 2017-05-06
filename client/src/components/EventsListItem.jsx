@@ -17,7 +17,7 @@ class EventsListItem extends Component {
     if (this.props.data.image) {
       return (
         <MuiThemeProvider>
-          <Card>
+          <Card style={{ width: 700, align: 'center' }} >
             <CardHeader
               title={this.props.data.name}
               titleStyle={{ fontSize: '16px' }}
@@ -40,7 +40,7 @@ class EventsListItem extends Component {
     }
     return (
       <MuiThemeProvider>
-        <Card>
+        <Card style={{ width: 700 }}>
           <CardHeader
             title={this.props.data.name}
             titleStyle={{ fontSize: '16px' }}

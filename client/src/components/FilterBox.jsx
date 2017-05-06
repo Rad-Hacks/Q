@@ -41,19 +41,6 @@ class FilterBox extends Component {
     });
   }
 
-  // handleChange(val) {
-  //   this.setState({
-  //     value: val,
-  //   }, function () {
-  //     console.log(this.state.value);
-      // if (this.state.value === 2) {
-      //   this.props.toggleSortByDate();
-      // } else if (this.state.value === 3) {
-      //   this.props.toggleSortByAmount();
-      // }
-  //   });
-  // }
-
   render() {
     return (
       <div>
@@ -70,12 +57,6 @@ class FilterBox extends Component {
         </MuiThemeProvider>
         <br />
         <MuiThemeProvider>
-          {/* <CustomRaisedButton
-            label="Sort $$$ → $"
-            onClick={props.toggleSort}
-            labelStyle={styles.labelStyle}
-            backgroundColor={styles.backgroundColor.toString()}
-          /> */}
           <DropDownMenu value={this.state.value} onChange={this.handleChange}>
             <MenuItem value={1} primaryText="Sort Items" />
             <MenuItem value={2} primaryText="Sort By Date" />
