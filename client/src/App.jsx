@@ -15,12 +15,15 @@ class App extends Component {
       events: [],
       locations: [],
       currentLocation: null,
-      sort: false,
+      sortByAmount: false,
+      sortByDate: false,
       loggedIn: null,
     };
     this.getQsFromDB = this.getQsFromDB.bind(this);
     this.setLocation = this.setLocation.bind(this);
-    this.toggleSort = this.toggleSort.bind(this);
+    this.toggleSortByDate = this.toggleSortByDate.bind(this);
+    this.toggleSortByAmount = this.toggleSortByAmount.bind(this);
+    this.turnOffSorts = this.turnOffSorts.bind(this);
     this.handleCreateQ = this.handleCreateQ.bind(this);
   }
 
@@ -45,9 +48,22 @@ class App extends Component {
     });
   }
 
-  toggleSort() {
+  toggleSortByDate() {
     this.setState({
-      sort: !this.state.sort,
+      sortByDate: !this.state.sortByDate,
+    });
+  }
+
+  toggleSortByAmount() {
+    this.setState({
+      sortByAmount: !this.state.sortByAmount,
+    });
+  }
+
+  turnOffSorts() {
+    this.setState({
+      sortByAmount: false,
+      sortByDate: false,
     });
   }
 
@@ -74,13 +90,16 @@ class App extends Component {
         <FilterBox
           locations={this.state.locations}
           setLocation={this.setLocation}
-          toggleSort={this.toggleSort}
+          toggleSortByDate={this.toggleSortByDate}
+          toggleSortByAmount={this.toggleSortByAmount}
+          turnOffSorts={this.turnOffSorts}
         />
         <EventsList
           style={{ width: 250, margin: '0 auto' }}
           events={this.state.events}
           currentLocation={this.state.currentLocation}
-          sort={this.state.sort}
+          sortByDate={this.state.sortByDate}
+          sortByAmount={this.state.sortByAmount}
         />
       </div>
     );

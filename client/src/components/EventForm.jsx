@@ -210,8 +210,8 @@ class EventForm extends Component {
       this.setState({
         name: res.result.name,
         address: res.result.formatted_address.split(',')[0],
-        city: res.result.formatted_address.split(',')[1],
-        state: res.result.formatted_address.split(',')[2].substring(0, 3),
+        city: res.result.formatted_address.split(',')[1].replace(/\s/g, ''),
+        state: res.result.formatted_address.split(',')[2].substring(1, 3),
         image: res.result.photos[0].photo_reference,
       });
     });
