@@ -18,7 +18,7 @@ CREATE TABLE users(
 CREATE TABLE events(
   id int NOT NULL AUTO_INCREMENT,
   user_id varchar (100) NOT NULL,
-  name varchar (50) NOT NULL,
+  name varchar (80) NOT NULL,
   amount decimal (10, 2) NOT NULL,
   address varchar (50) NOT NULL,
   city varchar (25) NOT NULL,

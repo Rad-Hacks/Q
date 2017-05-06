@@ -11,7 +11,7 @@ class EventsList extends Component {
   }
 
   render() {
-    if (this.props.currentLocation && this.props.sort) {
+    if (this.props.currentLocation && this.props.sortByAmount) {
       return (
         <div>
           <p> Here are your local events: </p>
@@ -23,12 +23,35 @@ class EventsList extends Component {
           ))}
         </div>
       );
-    } else if (this.props.sort) {
+    } else if (this.props.currentLocation && this.props.sortByDate) {
+      return (
+        <div>
+          <p> Here are your local events: </p>
+          {this.props.events.filter(event =>
+            (`${event.city}, ${event.state}`) === this.props.currentLocation)
+          .sort((a, b) => parseInt(a.date.replace(/-/g, ''), 10) - parseInt(b.date.replace(/-/g, ''), 10))
+          .map(event => (
+            <EventsListItem key={event.id} style={{ width: '200px' }} data={event} />
+          ))}
+        </div>
+      );
+    } else if (this.props.sortByAmount) {
       const eventQs = this.props.events.slice();
       return (
         <div>
           <p> Please search above to find events in your area: </p>
           {eventQs.sort((a, b) => b.amount - a.amount)
+          .map(event => (
+            <EventsListItem key={event.id} style={{ width: '200px' }} data={event} />
+          ))}
+        </div>
+      );
+    } else if (this.props.sortByDate) {
+      const eventQs = this.props.events.slice();
+      return (
+        <div>
+          <p> Please search above to find events in your area: </p>
+          {eventQs.sort((a, b) => parseInt(a.date.replace(/-/g, ''), 10) - parseInt(b.date.replace(/-/g, ''), 10))
           .map(event => (
             <EventsListItem key={event.id} style={{ width: '200px' }} data={event} />
           ))}
@@ -59,13 +82,15 @@ class EventsList extends Component {
 
 EventsList.propTypes = {
   currentLocation: PropTypes.string,
-  sort: PropTypes.bool,
+  sortByDate: PropTypes.bool,
+  sortByAmount: PropTypes.bool,
   events: PropTypes.node.isRequired,
 };
 
 EventsList.defaultProps = {
   currentLocation: null,
-  sort: null,
+  sortByDate: null,
+  sortByAmount: null,
 };
 
 export default EventsList;
