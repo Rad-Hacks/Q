@@ -62,26 +62,24 @@ app.post('/api/usersLogin', (req, res) => {
           res.sendStatus(500);
         }
         if (match) {
-          res.send(200).json(results[0].user_id);
+          res.status(201).send(results[0].user_id);
         } else {
-          res.send(404);
+          res.sendStatus(500);
         }
       });
     } else {
-      res.send(500);
+      res.sendStatus(500);
     }
   });
 });
 
 app.post('/api/usersCreate', (req, res) => {
-  console.log(req.body);
-  console.log(typeof req.body);
   const userInfo = hashUserId(req);
   db.createUser(userInfo, (err, results) => {
     if (err) {
       res.sendStatus(500);
     } else {
-      res.status(201).json(userInfo[5]);
+      res.status(201).send(userInfo[5]);
     }
   });
 });
@@ -93,20 +91,18 @@ app.get('/api/googleusers', (req, res) => {
     if (err) {
       res.sendStatus(500);
     } else if (results.length > 0) {
-      res.status(200).json(results[0].user_id);
+      res.status(200).send(results[0].user_id);
     }
   });
 });
 
 app.post('/api/googleusers', (req, res) => {
-  console.log(req.body);
-  console.log(typeof req.body);
   const userInfo = hashUserId(req);
   db.createUser(userInfo, (err, results) => {
     if (err) {
       res.sendStatus(500);
     } else {
-      res.status(201).json(userInfo[5]);
+      res.status(201).send(userInfo[5]);
     }
   });
 });
