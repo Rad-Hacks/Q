@@ -13,6 +13,20 @@ class Signup extends Component {
     };
   }
 
+  handleSubmit() {
+    fetch('http:localhost:8080/api/users', {
+      method: 'post',
+      body: JSON.stringify({
+        username: this.state.username,
+        password: this.state.password,
+        city: this.state.city,
+        state: this.state.state,
+        phone: this.state.phone,
+        email: this.state.email,
+      }),
+    });
+  }
+
   render() {
     return (
       <form className="login">
