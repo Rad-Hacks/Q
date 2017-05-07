@@ -77,7 +77,9 @@ class Signup extends Component {
   }
   render() {
     return (
-      <div>
+      <div className="container">
+        <br />
+        <br />
         <form className="login">
           <p className="title">Sign up</p>
           <input

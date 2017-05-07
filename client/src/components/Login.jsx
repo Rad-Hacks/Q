@@ -64,7 +64,9 @@ class Login extends Component {
   }
   render() {
     return (
-      <div>
+      <div className="container">
+        <br />
+        <br />
         <form className="login">
           <p className="title">Log in</p>
           <input
@@ -82,6 +84,8 @@ class Login extends Component {
             <span className="state">Log in</span>
           </button>
         </form>
+        <br />
+        <br />
         <div>
           <GoogleLogin
             clientId="1031010390104-f139vsdq3f8dn21usnuj4h3jtq8jpdpf.apps.googleusercontent.com"
