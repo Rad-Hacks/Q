@@ -5,6 +5,7 @@ import Home from './components/Home';
 import Signup from './components/Signup';
 import Login from './components/Login';
 import Welcome from './components/Welcome';
+import App from './App';
 import './index.css';
 
 ReactDOM.render(
