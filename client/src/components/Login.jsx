@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import './Login.css';
 
 class Login extends Component {
   constructor(props) {
@@ -6,10 +7,6 @@ class Login extends Component {
     this.state = {
       username: '',
       password: '',
-      city: '',
-      state: '',
-      phone: '',
-      email: '',
     };
   }
 
@@ -21,14 +18,6 @@ class Login extends Component {
         <i className="fa fa-user" />
         <input type="password" placeholder="Password" />
         <i className="fa fa-key" />
-        <input type="password" placeholder="City" />
-        <i className="fa fa-location-arrow" />
-        <input type="text" placeholder="State" />
-        <i className="fa fa-location-arroe" />
-        <input type="password" placeholder="Phone" />
-        <i className="fa fa-phone" />
-        <input type="password" placeholder="Email" />
-        <i className="fa fa-email" />
         <button onClick={() => this.handleSubmit}>
           <i className="spinner" />
           <span className="state">Log in</span>
@@ -36,7 +25,6 @@ class Login extends Component {
       </form>
     );
   }
-
 }
 
 export default Login;

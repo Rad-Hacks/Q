@@ -1,120 +1,42 @@
 import React, { Component } from 'react';
-import ReactCSSTG from 'react-addons-css-transition-group';
-import PropTypes from 'prop-types';
-import './Login.css';
 
-// Signup component
 class Signup extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      isVisible: true,
+      username: '',
+      password: '',
+      city: '',
+      state: '',
+      phone: '',
+      email: '',
     };
-    // Bindings
-    this.handleSubmit = this.handleSubmit.bind(this);
-    this.handleRemount = this.handleRemount.bind(this);
   }
 
-  handleSubmit(e) {
-    e.preventDefault();
-    this.setState({
-      isVisible: false,
-    });
-    return false;
-  }
-  handleRemount(e) {
-    this.setState({
-      isVisible: true,
-    });
-    e.preventDefault();
-  }
   render() {
-    // const for React CSS transition declaration
-    const component = this.state.isVisible ? <Modal onSubmit={this.handleSubmit} key="modal" />
-    : <ModalBack onClick={this.handleRemount} key="bringitback" />;
-
     return (
-      <ReactCSSTG
-        transitionName="animation"
-        transitionAppear
-        transitionAppearTimeout={500}
-        transitionEnterTimeout={500}
-        transitionLeaveTimeout={300}
-      >
-        { component }
-      </ReactCSSTG>
+      <form className="login">
+        <p className="title">Sign up</p>
+        <input type="text" placeholder="Username" autoFocus />
+        <i className="fa fa-user" />
+        <input type="password" placeholder="Password" />
+        <i className="fa fa-key" />
+        <input type="password" placeholder="City" />
+        <i className="fa fa-location-arrow" />
+        <input type="text" placeholder="State" />
+        <i className="fa fa-location-arroe" />
+        <input type="password" placeholder="Phone" />
+        <i className="fa fa-phone" />
+        <input type="password" placeholder="Email" />
+        <i className="fa fa-email" />
+        <button onClick={() => this.handleSubmit}>
+          <i className="spinner" />
+          <span className="state">Log in</span>
+        </button>
+      </form>
     );
   }
+
 }
-
-// Modal
-const Modal = props => (
-  <div className="Modal">
-    <Logo />
-    <form onSubmit={props.onSubmit} >
-      <Input type="text" name="username" placeholder="username" />
-      <Input type="password" name="password" placeholder="password" />
-      <button> Sign In</button>
-    </form>
-    <div className="social-signin">
-      <button className="fb" onClick={props.onClick}>
-        <i className="fa fa-facebook" aria-hidden="true" />
-      </button>
-      <button className="tw" onClick={props.onClick}>
-        <i className="fa fa-twitter" aria-hidden="true" />
-      </button>
-    </div>
-    <a href="#/"> Lost your password? </a>
-  </div>
-);
-
-Modal.propTypes = {
-  onSubmit: PropTypes.function,
-  onClick: PropTypes.function,
-};
-
-// Generic input field
-const Input = props => (
-  <div className="Input">
-    <input
-      type={props.type}
-      name={props.name}
-      placeholder={props.placeholder}
-      required
-      autoComplete="false"
-    />
-    <label htmlFor={props.name} />
-  </div>
-);
-
-Input.propTypes = {
-  type: PropTypes.string,
-  name: PropTypes.string,
-  placeholder: PropTypes.placeholder,
-};
-
-// Fake logo
-const Logo = () => (
-  <div className="logo">
-    <i className="fa fa-bug" aria-hidden="true" />
-    <span> Sign up for Q </span>
-  </div>
-);
-
-// Button to brind the modal back
-const ModalBack = props => (
-  <button
-    className="bringitback"
-    onClick={props.onClick}
-    key={props.className}
-  >
-    Bring the modal back!
-  </button>
-);
-
-ModalBack.propTypes = {
-  onClick: PropTypes.function,
-  className: PropTypes.string,
-};
 
 export default Signup;
