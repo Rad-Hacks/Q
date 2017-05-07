@@ -20,7 +20,7 @@ class Login extends Component {
     console.log(response);
     console.log(`GoogleID: ${response.googleId}`);
     console.log(response.profileObj);
-
+    // send username data
     $.ajax({
       type: 'GET',
       url: 'http://localhost:8080/api/googleusers',
