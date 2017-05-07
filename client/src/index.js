@@ -8,13 +8,15 @@ import Welcome from './components/Welcome';
 import './index.css';
 
 ReactDOM.render(
-  <Router>
-    <div>
-      <Route exact path="/" component={Welcome} />
-      <Route path="/login" component={Login} />
-      <Route path="/signup" component={Signup} />
-      <Route path="/home" component={Home} />
-    </div>
-  </Router>,
+  <App>
+    <Router>
+      <div>
+        <Route exact path="/" component={Welcome} />
+        <Route path="/login" component={Login} />
+        <Route path="/signup" component={Signup} />
+        <Route path="/home" component={Home} />
+      </div>
+    </Router>
+  </App>,
   document.getElementById('root')
 );
