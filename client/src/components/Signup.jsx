@@ -24,11 +24,11 @@ class Signup extends Component {
         <input type="password" placeholder="City" />
         <i className="fa fa-location-arrow" />
         <input type="text" placeholder="State" />
-        <i className="fa fa-location-arroe" />
+        <i className="fa fa-location-arrow" />
         <input type="password" placeholder="Phone" />
         <i className="fa fa-phone" />
         <input type="password" placeholder="Email" />
-        <i className="fa fa-email" />
+        <i className="fa fa-envelope" />
         <button onClick={() => this.handleSubmit}>
           <i className="spinner" />
           <span className="state">Log in</span>
