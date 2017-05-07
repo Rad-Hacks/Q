@@ -1,4 +1,6 @@
 import React, { Component } from 'react';
+import GoogleLogin from 'react-google-login';
+import $ from 'jquery';
 
 class Signup extends Component {
   constructor(props) {
@@ -10,9 +12,35 @@ class Signup extends Component {
       state: '',
       phone: '',
       email: '',
+      googErr: false,
     };
+    // Bindings
+    this.handleSubmit = this.handleSubmit.bind(this);
+    this.handleGoogle = this.handleGoogle.bind(this);
+    this.handleFailure = this.handelFailure.bind(this);
   }
 
+  handleGoogle(response) {
+    console.log(response);
+    $.ajax({
+      type: 'POST',
+      url: 'http://localhost:8080/api/googleusers',
+      success: (resp) => {
+        console.log(resp);
+      },
+      error: (err) => {
+        console.log(err);
+        this.setState({
+          googErr: true,
+        });
+      },
+    });
+  }
+  handleFailure() {
+    this.setState({
+      googErr: true,
+    });
+  }
   handleSubmit() {
     fetch('http:localhost:8080/api/users', {
       method: 'post',
@@ -26,7 +54,6 @@ class Signup extends Component {
       }),
     });
   }
-
   render() {
     return (
       <form className="login">
@@ -66,8 +93,17 @@ class Signup extends Component {
           <span className="state">Log in</span>
         </button>
       </form>
+      <div className="social-signin">
+        <GoogleLogin
+          clientId="1031010390104-f139vsdq3f8dn21usnuj4h3jtq8jpdpf.apps.googleusercontent.com"
+          buttonText="Sign Up with Google"
+          onSuccess={props.handleGoogle}
+          onFailure={props.handleFailure}
+        />
+      </div>
+      <p> {!props.googErr ? 'Oops there was an error, please try again' : ''} </p>
+      <a href="/login"> Already a member? Login! </a>
     );
   }
 }
-
 export default Signup;
