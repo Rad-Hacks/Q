@@ -1,5 +1,5 @@
 const express = require('express');
-const path = require('path');
+// const path = require('path');
 // const router = require('router');
 const morgan = require('morgan');
 const cookieParser = require('cookie-parser');
@@ -82,20 +82,40 @@ app.post('/api/users', (req, res) => {
   });
 });
 
-user_id varchar (100) NOT NULL,
-username varchar (25) NOT NULL,
-password varchar (100) NOT NULL,
-city varchar (25) NOT NULL,
-state varchar (2) NOT NULL,
-phone varchar (11) NOT NULL,
-contactEmail
+// user_id varchar (100) NOT NULL,
+// username varchar (25) NOT NULL,
+// password varchar (100) NOT NULL,
+// city varchar (25) NOT NULL,
+// state varchar (2) NOT NULL,
+// phone varchar (11) NOT NULL,
+// contactEmail
 
 app.get('/api/googleusers', (req, res) => {
-  db.findUser({username: });
+  db.findUser({ username: req.body.username }, (err, results) => {
+    if (err) {
+      res.sendStatus(500);
+    } else if (results.length > 0) {
+      res.status(200).json(results[0].user_id);
+    }
+  });
 });
 
 app.post('/api/googleusers', (req, res) => {
-
+  // refactor for googleAuth with googleID etc.
+  const userInfo = Object.keys(req.body).map(key => req.body[key]);
+  const username = req.body.username;
+  const cipher = crypto.createHash('sha1');
+  cipher.update(username);
+  const userId = cipher.digest('hex');
+  userInfo.push(userId);
+  db.createUser(userInfo, (err, results) => {
+    if (err) {
+      res.sendStatus(500);
+    } else {
+      console.log(results);
+      res.status(201).json(userId);
+    }
+  });
 });
 
 app.listen(8080, () => {
