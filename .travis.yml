@@ -4,3 +4,5 @@ deploy:
 language: node_js
 node_js:
   - "7"
+  - "6"
+  - "5"
