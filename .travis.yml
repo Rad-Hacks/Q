@@ -1,5 +1,7 @@
+deploy:
+  api_key:
+    secure: aNaYJXgmcqJM+fDZaZqF+qdzwNol/eHCMuPPqwXYBJbz2xjbvglVq7PRcGx8py5UrRRlEroBRdlo0VCNN3QS9k8FmchmqrZhj8U1C+sZl4vjuOYU+fZj0LQyxFkZsUQE4LGjJ/ii2XU8kBU7X7dSmKGXvliUPISz878r53cHWpwIBcHoZ4xEja8bfpzhb5Pjih+Jr9/r+bbfLxvSRaRjf6pxhJF2TqT0XuGkMaOqTLXIcpIZicn4intCgfOjC0XUrdyb91bssErZCzZbbH5zqpYNXa/2i69c152fhqkk4QFCJwnGF7hiyPmzsNw0t0rq+TeSPh27jChHydw3yivxv7gFsJ/NigVMHRkqlmBfaYjeItAvVb8Em7lSU9Lqk+XEayl+hksZmVI9BX9Djo7kR9ekBDV2JhfCxdI7sV8QdXFTw82bUyfNnxyHYnYAb7kx0W1eIgX4WGOC3fVYZg1HGABkjJPxBqxRNVtBFe21Ytib+1RnZkDDI5NbEc7DjyJ0KQMAtvmA6ShzicRzcOugDiW21HpwC5j66bhr5ztEjLs9vmFO++dPV5LIMLwaTVJ+D+pbumzPqnEd7witrXQOFrHH183NkbQTxy3T7Rg77gz3GF+07EKYwVPyOa8bex+gEqePi/ZfrqArAOgv0SUtvKP7iz+zLErsTQi9myeBAYE=
 language: node_js
 node_js:
-  # Most recent stable 7 version
   - "iojs"
-  - "7
+  - "7"
