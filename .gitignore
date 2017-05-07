@@ -2,3 +2,4 @@
 
 ## API keys ##
 src/config/google.js
+/server/config/*.js

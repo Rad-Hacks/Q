@@ -39,14 +39,14 @@ module.exports = {
 
   createUser(values, callback) {
     const password = values[1];
-    let vals = values.slice();
+    const vals = values.slice();
     bcrypt.hash(password, 10, (err, hash) => {
       if (err) {
         callback(err, console.log('Password cannot be hashed'));
       } else {
         vals[1] = hash;
-        const queryString = `INSERT INTO users (username, password, city, state, phone, contactEmail, user_id)
-        VALUES (?, ?, ?, ?, ?, ?, ?);`;
+        const queryString = `INSERT INTO users (username, password, city, state, contactEmail, user_id)
+        VALUES (?, ?, ?, ?, ?, ?);`;
 
         connection.query(queryString, vals, (error, results) => {
           if (error) {
@@ -60,12 +60,12 @@ module.exports = {
   },
 
   findUser(username, callback) {
-    connection.query(`SELECT * FROM users WHERE username = ${username};`, (err, results) => {
+    connection.query(`SELECT * FROM users WHERE username='chihyundorischiu@gmail.com';`, (err, results) => {
       if (err) {
         callback(err, null);
       } else {
         callback(null, results);
       }
     });
-  }
+  },
 };

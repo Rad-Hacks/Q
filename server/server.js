@@ -1,17 +1,30 @@
 const express = require('express');
-// const path = require('path');
-// const router = require('router');
+const morgan = require('morgan');
 const bodyParser = require('body-parser');
 const crypto = require('crypto');
 const bcrypt = require('bcrypt');
+const url = require('url');
+const qs = require('query-string');
 const db = require('../db/index.js');
 
 const app = express();
-
-app.use(bodyParser.json());
+app.use(morgan('dev')); // log every request to the console
+app.use(bodyParser.json()); // get info from html forms;
 app.use(bodyParser.urlencoded({
   extended: true,
 }));
+
+const hashUserId = (req) => {
+  const userInfo = Object.keys(req.body).map(key => req.body[key]);
+  console.log(userInfo);
+  const username = req.body.username;
+  const cipher = crypto.createHash('sha1');
+  cipher.update(username);
+  const userId = cipher.digest('hex');
+  userInfo.push(userId);
+  return userInfo;
+};
+
 app.use((req, res, next) => {
   res.header('Access-Control-Allow-Origin', '*');
   res.header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept');
@@ -39,7 +52,7 @@ app.post('/api/events', (req, res) => {
   });
 });
 
-app.get('/api/users', (req, res) => {
+app.post('/api/usersLogin', (req, res) => {
   db.findUser(req.body.username, (err, results) => {
     if (err) {
       res.sendStatus(500);
@@ -60,23 +73,43 @@ app.get('/api/users', (req, res) => {
   });
 });
 
-app.post('/api/users', (req, res) => {
-  const userInfo = Object.keys(req.body).map(key => req.body[key]);
-  const username = req.body.username;
-  const cipher = crypto.createHash('sha1');
-  cipher.update(username);
-  const userId = cipher.digest('hex');
-  userInfo.push(userId);
+app.post('/api/usersCreate', (req, res) => {
+  console.log(req.body);
+  console.log(typeof req.body);
+  const userInfo = hashUserId(req);
   db.createUser(userInfo, (err, results) => {
     if (err) {
       res.sendStatus(500);
     } else {
-      console.log(results);
-      res.status(201).json(userId);
+      res.status(201).json(userInfo[5]);
     }
   });
 });
 
+app.get('/api/googleusers', (req, res) => {
+  const query = url.parse(req.url).query;
+  const parsed = qs.parse(query);
+  db.findUser(JSON.stringify(parsed.username), (err, results) => {
+    if (err) {
+      res.sendStatus(500);
+    } else if (results.length > 0) {
+      res.status(200).json(results[0].user_id);
+    }
+  });
+});
+
+app.post('/api/googleusers', (req, res) => {
+  console.log(req.body);
+  console.log(typeof req.body);
+  const userInfo = hashUserId(req);
+  db.createUser(userInfo, (err, results) => {
+    if (err) {
+      res.sendStatus(500);
+    } else {
+      res.status(201).json(userInfo[5]);
+    }
+  });
+});
 
 app.listen(8080, () => {
   console.log('Listening on port 8080!');
