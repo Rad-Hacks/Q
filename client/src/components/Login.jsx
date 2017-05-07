@@ -9,7 +9,36 @@ class Login extends Component {
     this.state = {
       username: '',
       password: '',
+      googErr: false,
     };
+    // Bindings
+    this.handleSubmit = this.handleSubmit.bind(this);
+    this.handleGoogle = this.handleGoogle.bind(this);
+    this.handleFailure = this.handleFailure.bind(this);
+  }
+  handleGoogle(response) {
+    console.log(response);
+    console.log(`GoogleID: ${response.googleId}`);
+    console.log(response.profileObj);
+
+    $.ajax({
+      type: 'GET',
+      url: 'http://localhost:8080/api/googleusers',
+      success: (resp) => {
+        console.log(resp);
+      },
+      error: (err) => {
+        console.log(err);
+        this.setState({
+          googErr: true,
+        });
+      },
+    });
+  }
+  handleFailure() {
+    this.setState({
+      googErr: true,
+    });
   }
 
   handleSubmit() {
@@ -40,7 +69,18 @@ class Login extends Component {
           <span className="state">Log in</span>
         </button>
       </form>
+      <div className="social-signin">
+        <GoogleLogin
+          clientId="1031010390104-f139vsdq3f8dn21usnuj4h3jtq8jpdpf.apps.googleusercontent.com"
+          buttonText="Sign In with Google"
+          onSuccess={props.handleGoogle}
+          onFailure={props.handleFailure}
+        />
+      </div>
+      <p> {!props.googErr ? 'Oops there was an error, please try again' : ''} </p>
+      <a href="/signup"> Not a member? Signup! </a>
     );
   }
 }
+
 export default Login;
