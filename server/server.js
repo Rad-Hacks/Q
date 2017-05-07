@@ -4,6 +4,8 @@ const morgan = require('morgan');
 const bodyParser = require('body-parser');
 const crypto = require('crypto');
 const bcrypt = require('bcrypt');
+const url = require('url');
+const qs = require('query-string');
 const db = require('../db/index.js');
 // const authConfig = require('./config/auth');
 
@@ -84,20 +86,17 @@ app.post('/api/users', (req, res) => {
   });
 });
 
-// user_id varchar (100) NOT NULL,
-// username varchar (25) NOT NULL,
-// password varchar (100) NOT NULL,
-// city varchar (25) NOT NULL,
-// state varchar (2) NOT NULL,
-// phone varchar (11) NOT NULL,
-// contactEmail
-
 app.get('/api/googleusers', (req, res) => {
   console.log(req.body);
-  db.findUser({ username: req.body.username }, (err, results) => {
+  const query = url.parse(req.url).query;
+  const parsed = qs.parse(query);
+  console.log(typeof parsed.username);
+  db.findUser(JSON.stringify(parsed.username), (err, results) => {
     if (err) {
+      console.log(err);
       res.sendStatus(500);
     } else if (results.length > 0) {
+      console.log(results[0].user_id);
       res.status(200).json(results[0].user_id);
     }
   });
