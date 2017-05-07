@@ -1,12 +1,7 @@
 import React, { Component } from 'react';
-<<<<<<< HEAD
-=======
+import GoogleLogin from 'react-google-login';
 import $ from 'jquery';
-import ReactCSSTG from 'react-addons-css-transition-group';
-import PropTypes from 'prop-types';
->>>>>>> add get request to server
 import './Login.css';
-import googleBtn from './btn_google_signin.png';
 
 class Login extends Component {
   constructor(props) {
