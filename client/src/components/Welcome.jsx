@@ -1,5 +1,5 @@
 import React from 'react';
-import Signup from './Signup.jsx';
+import Signup from './Signup';
 
 const Welcome = () => (
   <div style={{ width: '100%', height: '100%' }}>
