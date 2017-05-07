@@ -17,17 +17,35 @@ class Signup extends Component {
     return (
       <form className="login">
         <p className="title">Sign up</p>
-        <input type="text" placeholder="Username" autoFocus />
+        <input
+          type="text" placeholder="Username" autoFocus
+          onChange={(e) => { this.setState({ username: e.target.value }); }}
+        />
         <i className="fa fa-user" />
-        <input type="password" placeholder="Password" />
+        <input
+          type="password" placeholder="Password"
+          onChange={(e) => { this.setState({ password: e.target.value }); }}
+        />
         <i className="fa fa-key" />
-        <input type="password" placeholder="City" />
+        <input
+          type="text" placeholder="City"
+          onChange={(e) => { this.setState({ city: e.target.value }); }}
+        />
         <i className="fa fa-location-arrow" />
-        <input type="text" placeholder="State" />
+        <input
+          type="text" placeholder="State"
+          onChange={(e) => { this.setState({ state: e.target.value }); }}
+        />
         <i className="fa fa-location-arrow" />
-        <input type="password" placeholder="Phone" />
+        <input
+          type="text" placeholder="Phone"
+          onChange={(e) => { this.setState({ phone: e.target.value }); }}
+        />
         <i className="fa fa-phone" />
-        <input type="password" placeholder="Email" />
+        <input
+          type="text" placeholder="Email"
+          onChange={(e) => { this.setState({ email: e.target.value }); }}
+        />
         <i className="fa fa-envelope" />
         <button onClick={() => this.handleSubmit}>
           <i className="spinner" />
