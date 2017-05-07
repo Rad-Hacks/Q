@@ -22,6 +22,7 @@ class Signup extends Component {
 
   handleGoogle(response) {
     console.log(response);
+    // send userobj data,
     $.ajax({
       type: 'POST',
       url: 'http://localhost:8080/api/googleusers',
