@@ -17,15 +17,22 @@ class Signup extends Component {
     // Bindings
     this.handleSubmit = this.handleSubmit.bind(this);
     this.handleGoogle = this.handleGoogle.bind(this);
-    this.handleFailure = this.handelFailure.bind(this);
+    this.handleFailure = this.handleFailure.bind(this);
   }
 
   handleGoogle(response) {
     console.log(response);
-    // send userobj data,
+    const userObj = {
+      username: response.profileObj.email,
+      password: response.googleId,
+      city: '',
+      state: '',
+      contactEmail: response.profileObj.email,
+    }
     $.ajax({
       type: 'POST',
       url: 'http://localhost:8080/api/googleusers',
+      data: userObj,
       success: (resp) => {
         console.log(resp);
       },
