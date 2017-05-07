@@ -45,8 +45,8 @@ module.exports = {
         callback(err, console.log('Password cannot be hashed'));
       } else {
         vals[1] = hash;
-        const queryString = `INSERT INTO users (username, password, city, state, phone, contactEmail, user_id)
-        VALUES (?, ?, ?, ?, ?, ?, ?);`;
+        const queryString = `INSERT INTO users (username, password, city, state, contactEmail, user_id)
+        VALUES (?, ?, ?, ?, ?, ?);`;
 
         connection.query(queryString, vals, (error, results) => {
           if (error) {
