@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import GoogleLogin from 'react-google-login';
+import $ from 'jquery';
 import './Login.css';
 
 class Login extends Component {
@@ -33,7 +34,7 @@ class Login extends Component {
       });
     });
   }
-  handleFailure(e) {
+  handleFailure() {
     this.setState({
       loginErr: true,
       errMsg: 'unable to login with google'
@@ -41,28 +42,31 @@ class Login extends Component {
   }
 
   handleSubmit() {
-    fetch('http://localhost:8080/api/usersLogin', {
-      method: 'post',
-      body: JSON.stringify({
-        username: this.state.username,
-        password: this.state.password,
-        login: true,
-      }),
-    })
-    .then((resp) => {
-      // respt = user_id send to App
-    })
-    .catch((err) => {
-      console.log(err);
-      this.setState({
-        loginErr: true,
-        errMsg: err,
-      });
+    const userObj = {
+      username: this.state.username,
+      password: this.state.password,
+    };
+    $.ajax({
+      type: 'POST',
+      url: 'http://localhost:8080/api/usersLogin',
+      data: userObj,
+      success: (resp) => {
+        // resp = user_id--> send up to App
+        console.log(resp);
+      },
+      error: (error) => {
+        this.setState({
+          googErr: true,
+          errMsg: error,
+        });
+      },
     });
   }
   render() {
     return (
-      <div>
+      <div className="container">
+        <br />
+        <br />
         <form className="login">
           <p className="title">Log in</p>
           <input
@@ -75,17 +79,21 @@ class Login extends Component {
             onChange={(e) => { this.setState({ password: e.target.value }); }}
           />
           <i className="fa fa-key" />
-          <button onClick={() => this.handleSubmit}>
+          <button onClick={this.handleSubmit}>
             <i className="spinner" />
             <span className="state">Log in</span>
           </button>
         </form>
-        <GoogleLogin
-          clientId="1031010390104-f139vsdq3f8dn21usnuj4h3jtq8jpdpf.apps.googleusercontent.com"
-          buttonText="Sign In with Google"
-          onSuccess={this.handleGoogle}
-          onFailure={this.handleFailure}
-        />
+        <br />
+        <br />
+        <div>
+          <GoogleLogin
+            clientId="1031010390104-f139vsdq3f8dn21usnuj4h3jtq8jpdpf.apps.googleusercontent.com"
+            buttonText="Sign In with Google"
+            onSuccess={this.handleGoogle}
+            onFailure={this.handleFailure}
+          />
+        </div>
         <p> {this.state.loginErr ? `Oops there was an error(${this.state.errMsg}), please try again` : ''} </p>
         <a href="/signup"> Not a member? Signup! </a>
       </div>

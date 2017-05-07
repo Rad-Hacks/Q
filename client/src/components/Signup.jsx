@@ -59,23 +59,27 @@ class Signup extends Component {
       state: this.state.state,
       email: this.state.email,
     };
-    fetch('http://localhost:8080/api/usersCreate', {
-      method: 'post',
-      body: userObj,
-    })
-    .then((resp) => {
-      // resp = user_id --> send up to App
-    })
-    .catch((err) => {
-      this.setState({
-        googErr: true,
-        errMsg: err,
-      });
+    $.ajax({
+      type: 'POST',
+      url: 'http://localhost:8080/api/usersCreate',
+      data: userObj,
+      success: (resp) => {
+        // resp = user_id--> send up to App
+        console.log(resp);
+      },
+      error: (error) => {
+        this.setState({
+          googErr: true,
+          errMsg: error,
+        });
+      },
     });
   }
   render() {
     return (
-      <div>
+      <div className="container">
+        <br />
+        <br />
         <form className="login">
           <p className="title">Sign up</p>
           <input

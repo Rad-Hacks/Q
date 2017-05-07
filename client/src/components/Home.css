@@ -1,21 +1,21 @@
-.App {
+.Home {
   text-align: left;
 }
 
-.App-logo {
+.Home-logo {
   animation: App-logo-spin infinite 20s linear;
   height: 20px;
 
 }
 
-.App-header {
+.Home-header {
   background-color: #222;
   height: 80px;
   padding: 20px;
   color: white;
 }
 
-.App-intro {
+.Home-intro {
   font-size: normal;
 }
 
