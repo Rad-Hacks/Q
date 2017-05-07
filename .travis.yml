@@ -1,0 +1,5 @@
+language: node_js
+node_js:
+  # Most recent stable 7 version
+  - "iojs"
+  - "7
