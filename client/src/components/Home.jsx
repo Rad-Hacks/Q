@@ -13,6 +13,7 @@ class Home extends Component {
       currentLocation: null,
       sortByAmount: false,
       sortByDate: false,
+      filterUserQs: false,
       loggedIn: null,
     };
     this.getQsFromDB = this.getQsFromDB.bind(this);
@@ -21,6 +22,7 @@ class Home extends Component {
     this.toggleSortByAmount = this.toggleSortByAmount.bind(this);
     this.turnOffSorts = this.turnOffSorts.bind(this);
     this.handleCreateQ = this.handleCreateQ.bind(this);
+    this.toggleFilterUserQs = this.toggleFilterUserQs.bind(this);
   }
 
   componentDidMount() {
@@ -56,6 +58,12 @@ class Home extends Component {
     });
   }
 
+  toggleFilterUserQs() {
+    this.setState({
+      filterUserQs: !this.state.filterUserQs,
+    });
+  }
+
   turnOffSorts() {
     this.setState({
       sortByAmount: false,
@@ -88,6 +96,8 @@ class Home extends Component {
           toggleSortByDate={this.toggleSortByDate}
           toggleSortByAmount={this.toggleSortByAmount}
           turnOffSorts={this.turnOffSorts}
+          toggleFilterUserQs={this.toggleFilterUserQs}
+          filterUserQs={this.state.filterUserQs}
         />
         <EventsList
           style={{ width: 250, margin: '0 auto' }}
@@ -95,6 +105,8 @@ class Home extends Component {
           currentLocation={this.state.currentLocation}
           sortByDate={this.state.sortByDate}
           sortByAmount={this.state.sortByAmount}
+          filterUserQs={this.state.filterUserQs}
+          userId={this.state.loggedIn}
         />
       </div>
     );

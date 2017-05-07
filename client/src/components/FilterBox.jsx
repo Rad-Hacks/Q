@@ -5,6 +5,8 @@ import DropDownMenu from 'material-ui/DropDownMenu';
 import MenuItem from 'material-ui/MenuItem';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import { purple500 } from 'material-ui/styles/colors';
+import RaisedButton from 'material-ui/RaisedButton';
+
 
 const styles = {
   labelStyle: {
@@ -42,6 +44,19 @@ class FilterBox extends Component {
   }
 
   render() {
+    if (this.props.filterUserQs) {
+      return (
+        <div>
+          <MuiThemeProvider>
+            <RaisedButton
+              label="Click to return to all Q's"
+              onClick={this.props.toggleFilterUserQs}
+              labelStyle={{ color: 'purple' }}
+            />
+          </MuiThemeProvider>
+        </div>
+      );
+    }
     return (
       <div>
         <p>Enter your city and state below:</p>
@@ -56,6 +71,17 @@ class FilterBox extends Component {
           />
         </MuiThemeProvider>
         <br />
+        <br />
+        <MuiThemeProvider>
+          <RaisedButton
+            label="Click here to see your Q's"
+            onClick={this.props.toggleFilterUserQs}
+            labelStyle={{ color: 'purple' }}
+          />
+        </MuiThemeProvider>
+        <br />
+        <br />
+        <br />
         <MuiThemeProvider>
           <DropDownMenu value={this.state.value} onChange={this.handleChange}>
             <MenuItem value={1} primaryText="Sort Items" />
@@ -63,8 +89,6 @@ class FilterBox extends Component {
             <MenuItem value={3} primaryText="Sort By Amount" />
           </DropDownMenu>
         </MuiThemeProvider>
-        <br />
-        <br />
       </div>
     );
   }
@@ -75,7 +99,14 @@ FilterBox.propTypes = {
   setLocation: PropTypes.func.isRequired,
   toggleSortByDate: PropTypes.func.isRequired,
   toggleSortByAmount: PropTypes.func.isRequired,
+  toggleFilterUserQs: PropTypes.func.isRequired,
   turnOffSorts: PropTypes.func.isRequired,
+  filterUserQs: PropTypes.bool,
+};
+
+FilterBox.defaultProps = {
+  locations: null,
+  filterUserQs: null,
 };
 
 module.exports = FilterBox;

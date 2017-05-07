@@ -11,7 +11,18 @@ class EventsList extends Component {
   }
 
   render() {
-    if (this.props.currentLocation && this.props.sortByAmount) {
+    if (this.props.filterUserQs) {
+      return (
+        <div>
+          <p> Here are your Qs: </p>
+          {this.props.events.filter(event =>
+            (event.user_id === this.props.userId))
+          .map(event => (
+            <EventsListItem key={event.id} style={{ width: '200px' }} data={event} />
+          ))}
+        </div>
+      );
+    } else if (this.props.currentLocation && this.props.sortByAmount) {
       return (
         <div>
           <p> Here are your local events: </p>
@@ -85,12 +96,16 @@ EventsList.propTypes = {
   sortByDate: PropTypes.bool,
   sortByAmount: PropTypes.bool,
   events: PropTypes.node.isRequired,
+  filterUserQs: PropTypes.bool,
+  userId: PropTypes.string,
 };
 
 EventsList.defaultProps = {
   currentLocation: null,
   sortByDate: null,
   sortByAmount: null,
+  filterUserQs: null,
+  userId: null,
 };
 
 export default EventsList;
