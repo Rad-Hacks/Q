@@ -17,7 +17,7 @@ const Nav = props => (
         primary
         onTouchTap={props.handleLogout}
         style={{ float: 'right' }}
-      />,
+      />
     </div>
   </MuiThemeProvider>
 );
