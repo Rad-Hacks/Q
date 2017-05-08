@@ -82,7 +82,6 @@ class EventsList extends Component {
     }
     return (
       <div>
-        <p> Please search above to find events in your area </p>
         {this.props.events.map(event => (
           <EventsListItem key={event.id} style={{ width: '200px' }} data={event} />
         ))}

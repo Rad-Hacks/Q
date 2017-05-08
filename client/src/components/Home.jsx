@@ -83,12 +83,10 @@ class Home extends Component {
             handleCreateQ={this.handleCreateQ}
             userId={this.state.loggedIn}
           />
-          <h2>Welcome to Q</h2>
+          <h2 className="Title">Q</h2>
         </div>
         <p className="Home-intro">
           Sign-up, stand in line, make money.
-          <br />
-          <br />
         </p>
         <FilterBox
           locations={this.state.locations}
@@ -100,7 +98,7 @@ class Home extends Component {
           filterUserQs={this.state.filterUserQs}
         />
         <EventsList
-          style={{ width: 250, margin: '0 auto' }}
+          style={{ margin: '0 auto' }}
           events={this.state.events}
           currentLocation={this.state.currentLocation}
           sortByDate={this.state.sortByDate}

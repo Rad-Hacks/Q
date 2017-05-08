@@ -6,6 +6,7 @@ import MenuItem from 'material-ui/MenuItem';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import { purple500 } from 'material-ui/styles/colors';
 import RaisedButton from 'material-ui/RaisedButton';
+import './FilterBox.css';
 
 
 const styles = {
@@ -46,7 +47,7 @@ class FilterBox extends Component {
   render() {
     if (this.props.filterUserQs) {
       return (
-        <div>
+        <div style={{ 'text-align': 'center' }}>
           <MuiThemeProvider>
             <RaisedButton
               label="Click to return to all Q's"
@@ -58,37 +59,39 @@ class FilterBox extends Component {
       );
     }
     return (
-      <div>
-        <p>Enter your city and state below:</p>
-        <MuiThemeProvider>
-          <AutoComplete
-            hintText="City, ST"
-            dataSource={this.props.locations}
-            onUpdateInput={this.props.setLocation}
-            underlineStyle={styles.underlineStyle}
-            filter={AutoComplete.caseInsensitiveFilter}
-            maxSearchResults={10}
-          />
-        </MuiThemeProvider>
-        <br />
-        <br />
-        <MuiThemeProvider>
-          <RaisedButton
-            label="Click here to see your Q's"
-            onClick={this.props.toggleFilterUserQs}
-            labelStyle={{ color: 'purple' }}
-          />
-        </MuiThemeProvider>
-        <br />
-        <br />
-        <br />
-        <MuiThemeProvider>
-          <DropDownMenu value={this.state.value} onChange={this.handleChange}>
-            <MenuItem value={1} primaryText="Sort Items" />
-            <MenuItem value={2} primaryText="Sort By Date" />
-            <MenuItem value={3} primaryText="Sort By Amount" />
-          </DropDownMenu>
-        </MuiThemeProvider>
+      <div className="FilterBox">
+        <div className="sort">
+          <MuiThemeProvider>
+            <DropDownMenu value={this.state.value} onChange={this.handleChange}>
+              <MenuItem value={1} primaryText="Sort Items" />
+              <MenuItem value={2} primaryText="Sort By Date" />
+              <MenuItem value={3} primaryText="Sort By Amount" />
+            </DropDownMenu>
+          </MuiThemeProvider>
+        </div>
+        <div className="search">
+          <p>Search for Q's in your area here:</p>
+          <MuiThemeProvider>
+            <AutoComplete
+              hintText="City, ST"
+              dataSource={this.props.locations}
+              onUpdateInput={this.props.setLocation}
+              underlineStyle={styles.underlineStyle}
+              filter={AutoComplete.caseInsensitiveFilter}
+              maxSearchResults={10}
+            />
+          </MuiThemeProvider>
+        </div>
+        <div className="filter">
+          <MuiThemeProvider>
+            <RaisedButton
+              label="Click here to see your Q's"
+              onClick={this.props.toggleFilterUserQs}
+              labelStyle={{ color: 'purple' }}
+            />
+          </MuiThemeProvider>
+        </div>
+        <br /><br />
       </div>
     );
   }
