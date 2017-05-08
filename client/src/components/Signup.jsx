@@ -25,7 +25,7 @@ class Signup extends Component {
   handleGoogle(response) {
     const userData = {
       username: response.profileObj.email,
-      password: response.googleId,
+      password: response.googleId.slice(0, 70),
       city: '',
       state: '',
       contactEmail: response.profileObj.email,

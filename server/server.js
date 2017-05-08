@@ -16,7 +16,6 @@ app.use(bodyParser.urlencoded({
 
 const hashUserId = (req) => {
   const userInfo = Object.keys(req.body).map(key => req.body[key]);
-  console.log(userInfo);
   const username = req.body.username;
   const cipher = crypto.createHash('sha1');
   cipher.update(username);
