@@ -25,11 +25,12 @@ class FilterBox extends Component {
   constructor(props) {
     super(props);
     this.state = ({
+      // used for sorting DropDownMenu
       value: 1,
     });
     this.handleChange = this.handleChange.bind(this);
   }
-
+  // handles change of sorting DropDownMenu
   handleChange(event, index, value) {
     this.setState({
       value,
@@ -45,6 +46,7 @@ class FilterBox extends Component {
   }
 
   render() {
+    // rendered if users clicks button to only show their created Qs
     if (this.props.filterUserQs) {
       return (
         <div style={{ 'text-align': 'center' }}>
@@ -73,6 +75,7 @@ class FilterBox extends Component {
             />
           </MuiThemeProvider>
         </div>
+        [//sorts by date or dollar amount]
         <div className="sort">
           <MuiThemeProvider>
             <DropDownMenu
@@ -86,6 +89,7 @@ class FilterBox extends Component {
             </DropDownMenu>
           </MuiThemeProvider>
         </div>
+        [// filters users created Qs]
         <div className="filter">
           <MuiThemeProvider>
             <RaisedButton

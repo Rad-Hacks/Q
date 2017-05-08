@@ -5,12 +5,14 @@ import EventsListItem from './EventsListItem';
 class EventsList extends Component {
   constructor(props) {
     super(props);
+    // null state not used
     this.state = ({
       null: null,
     });
   }
 
   render() {
+    // renders only Qs that user has created
     if (this.props.filterUserQs) {
       return (
         <div>
@@ -22,6 +24,7 @@ class EventsList extends Component {
           ))}
         </div>
       );
+    // if local Qs are filtered and user wants to sort by amount
     } else if (this.props.currentLocation && this.props.sortByAmount) {
       return (
         <div>
@@ -34,6 +37,7 @@ class EventsList extends Component {
           ))}
         </div>
       );
+    // if local Qs are filtered and user wants to sort by amount
     } else if (this.props.currentLocation && this.props.sortByDate) {
       return (
         <div>
