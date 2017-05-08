@@ -62,12 +62,11 @@ app.post('/api/usersLogin', (req, res) => {
           res.sendStatus(500);
         }
         if (match) {
-          sessLogin = req.body.username;
-          const loggedIn = {
+          sessLogin = {
             userId: results[0].user_id,
             loggedIn: true,
           };
-          res.status(201).json(loggedIn);
+          res.status(201).json(sessLogin);
         } else {
           res.sendStatus(500);
         }
@@ -84,12 +83,11 @@ app.post('/api/usersCreate', (req, res) => {
     if (err) {
       res.sendStatus(500);
     } else {
-      sessLogin = userInfo[0];
-      const loggedIn = {
+      sessLogin = {
         userId: userInfo[5],
         loggedIn: true,
       };
-      res.status(201).json(loggedIn);
+      res.status(201).json(sessLogin);
     }
   });
 });
@@ -101,12 +99,11 @@ app.get('/api/googleusers', (req, res) => {
     if (err) {
       res.sendStatus(500);
     } else if (results.length > 0) {
-      sessLogin = parsed.username;
-      const loggedIn = {
+      sessLogin = {
         userId: results[0].user_id,
         loggedIn: true,
       };
-      res.status(200).json(loggedIn);
+      res.status(200).json(sessLogin);
     }
   });
 });
@@ -117,12 +114,11 @@ app.post('/api/googleusers', (req, res) => {
     if (err) {
       res.sendStatus(500);
     } else {
-      sessLogin = userInfo[0];
-      const loggedIn = {
+      sessLogin = {
         userId: userInfo[5],
         loggedIn: true,
       };
-      res.status(201).json(loggedIn);
+      res.status(201).json(sessLogin);
     }
   });
 });
@@ -134,7 +130,7 @@ app.get('/api/logout', (req, res) => {
 
 app.get('/api/insession', (req, res) => {
   if (sessLogin) {
-    res.status(200).json(true);
+    res.status(200).json(sessLogin);
   } else {
     res.status(200).json(false);
   }
