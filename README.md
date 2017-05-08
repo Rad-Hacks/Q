@@ -1,6 +1,6 @@
 # Q
 
-> Waiting in line has never been so beneficial
+> When lines get long, everyone wins...
 
 ## RAD Hacks
 
