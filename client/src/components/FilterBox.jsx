@@ -33,7 +33,7 @@ class FilterBox extends Component {
   handleChange(event, index, value) {
     this.setState({
       value,
-    }, function () {
+    }, () => {
       if (this.state.value === 2) {
         this.props.toggleSortByDate();
       } else if (this.state.value === 3) {
@@ -61,7 +61,7 @@ class FilterBox extends Component {
     return (
       <div className="FilterBox">
         <div className="search">
-          <p className="searchtext">Search for Q's in your area here:</p>
+          <p className="searchtext">Search for Q&#39;s in your area here:</p>
           <MuiThemeProvider>
             <AutoComplete
               hintText="City, ST"
