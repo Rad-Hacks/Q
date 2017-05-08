@@ -1,5 +1,5 @@
 .Home {
-  text-align: left;
+
 }
 
 .Home-logo {
@@ -10,13 +10,22 @@
 
 .Home-header {
   background-color: #222;
-  height: 80px;
-  padding: 20px;
+  height: 100px;
+  padding: 30px;
   color: white;
+  font-size: 18px;
+  text-align: center;
+}
+
+.Title {
+  margin-top: -10px;
+  font-size: 60px;
+  text-align: center;
 }
 
 .Home-intro {
-  font-size: normal;
+  font-size: 24px;
+  text-align: center;
 }
 
 @keyframes App-logo-spin {

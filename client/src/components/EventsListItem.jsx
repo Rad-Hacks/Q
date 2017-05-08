@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { Card, CardHeader, CardText } from 'material-ui/Card';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
+import './EventsListItem.css';
 
 const GOOGLE_API_KEY = require('../config/google.js');
 
@@ -17,39 +18,38 @@ class EventsListItem extends Component {
     if (this.props.data.image) {
       return (
         <MuiThemeProvider>
-          <Card style={{ width: 700, align: 'center' }} >
+          <Card style={{ align: 'center' }} >
             <CardHeader
+              style={{ 'padding-right': '0px' }}
               title={this.props.data.name}
-              titleStyle={{ fontSize: '16px' }}
+              titleStyle={{ fontSize: '18px' }}
               subtitle={`$${this.props.data.amount}`}
-              subtitleStyle={{ fontSize: '20px', color: 'green' }}
-              actAsExpander
-              showExpandableButton
+              subtitleStyle={{ fontSize: '24px', color: 'green' }}
             />
-            <div><img src={`https://maps.googleapis.com/maps/api/place/photo?maxwidth=400&maxheight=400&photoreference=${this.props.data.image}&key=${GOOGLE_API_KEY}`} width={'300'} height={'200'} /></div>
-            <CardText expandable>
-              Address: {this.props.data.address}<br />
-              Date: {this.props.data.date.slice(0, 10)}<br />
-              Time: {this.props.data.time}<br />
-              Duration: {`${this.props.data.duration} hours`}<br />
-              Contact: {this.props.data.contactEmail}<br />
-            </CardText>
+            <div className="info">
+              <img src={`https://maps.googleapis.com/maps/api/place/photo?maxwidth=400&maxheight=400&photoreference=${this.props.data.image}&key=${GOOGLE_API_KEY}`} width={'300'} height={'200'} alt="Estabishment" />
+              <CardText className="cardtext" style={{ fontSize: '18px' }}>
+                Address: {this.props.data.address}<br />
+                Date: {this.props.data.date.slice(0, 10)}<br />
+                Time: {this.props.data.time}<br />
+                Duration: {`${this.props.data.duration} hours`}<br />
+                Contact: {this.props.data.contactEmail}<br />
+              </CardText>
+            </div>
           </Card>
         </MuiThemeProvider>
       );
     }
     return (
       <MuiThemeProvider>
-        <Card style={{ width: 700 }}>
+        <Card>
           <CardHeader
             title={this.props.data.name}
-            titleStyle={{ fontSize: '16px' }}
+            titleStyle={{ fontSize: '18px' }}
             subtitle={`$${this.props.data.amount}`}
             subtitleStyle={{ fontSize: '20px', color: 'green' }}
-            actAsExpander
-            showExpandableButton
           />
-          <CardText expandable>
+          <CardText style={{ fontSize: '18px' }}>
             Address: {this.props.data.address}<br />
             Date: {this.props.data.date.slice(0, 10)}<br />
             Time: {this.props.data.time}<br />

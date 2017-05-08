@@ -1,0 +1,32 @@
+.FilterBox {
+  text-align:center;
+  width:100%;
+  height:100px;
+  padding:0px;
+  margin: 10px;
+}
+
+.FilterBox .sort {
+  width:30%;
+  height:50%;
+  display:inline-block;
+  text-align: left;
+}
+
+.FilterBox .search {
+  width:30%;
+  height:50%;
+  display:inline-block;
+}
+
+.FilterBox .filter {
+  width:30%;
+  height:50%;
+  display: inline-block;
+  text-align: right;
+}
+
+.FilterBox .sort .search .filter: first-of-type {
+  width:50%;
+  height:100%;
+}
