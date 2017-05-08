@@ -12,6 +12,9 @@
 
 View the project roadmap [here](LINK_TO_PROJECT_ISSUES)
 
+### Styling
+
+See [_STYLE-GUIDE.md](_STYLE-GUIDE.md) for styling guidelines. This project uses [Airbnb's javascript guideline](https://github.com/airbnb/javascript) with (eslint)[http://eslint.org/] as the linter. 
 
 ## Contributing
 
