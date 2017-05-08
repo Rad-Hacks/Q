@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import GoogleLogin from 'react-google-login';
+import PropTypes from 'prop-types';
 import $ from 'jquery';
 
 class Signup extends Component {
@@ -13,6 +14,7 @@ class Signup extends Component {
       email: '',
       googErr: false,
       errMsg: null,
+      userId: null,
     };
     // Bindings
     this.handleSubmit = this.handleSubmit.bind(this);
@@ -33,8 +35,7 @@ class Signup extends Component {
       url: 'http://localhost:8080/api/googleusers',
       data: userData,
       success: (resp) => {
-        // resp = user_id--> send up to App
-        console.log(resp);
+        this.props.handleLogin(resp);
       },
       error: (error) => {
         this.setState({
@@ -64,8 +65,7 @@ class Signup extends Component {
       url: 'http://localhost:8080/api/usersCreate',
       data: userObj,
       success: (resp) => {
-        // resp = user_id--> send up to App
-        console.log(resp);
+        this.props.handleLogin(resp);
       },
       error: (error) => {
         this.setState({
@@ -129,4 +129,7 @@ class Signup extends Component {
   }
 }
 
+Signup.propTypes = {
+  handleLogin: PropTypes.func.isRequired,
+};
 export default Signup;

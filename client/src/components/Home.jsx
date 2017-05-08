@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import './Home.css';
 import Nav from './Nav';
 import EventsList from './EventsList';
@@ -14,7 +15,6 @@ class Home extends Component {
       sortByAmount: false,
       sortByDate: false,
       filterUserQs: false,
-      loggedIn: null,
     };
     this.getQsFromDB = this.getQsFromDB.bind(this);
     this.setLocation = this.setLocation.bind(this);
@@ -82,6 +82,7 @@ class Home extends Component {
           <Nav
             handleCreateQ={this.handleCreateQ}
             userId={this.state.loggedIn}
+            handleLogout={this.props.handleLogout}
           />
           <h2 className="Title">Q</h2>
         </div>
@@ -110,5 +111,9 @@ class Home extends Component {
     );
   }
 }
+
+Home.propTypes = {
+  handleLogout: PropTypes.func.isRequired,
+};
 
 export default Home;

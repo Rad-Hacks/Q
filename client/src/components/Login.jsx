@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import GoogleLogin from 'react-google-login';
+import PropTypes from 'prop-types';
 import $ from 'jquery';
 import './Login.css';
 
@@ -25,7 +26,7 @@ class Login extends Component {
       },
     })
     .then((resp) => {
-      console.log(resp);
+      this.props.handleLogin(resp);
     })
     .catch((err) => {
       this.setState({
@@ -37,7 +38,7 @@ class Login extends Component {
   handleFailure() {
     this.setState({
       loginErr: true,
-      errMsg: 'unable to login with google'
+      errMsg: 'unable to login with google',
     });
   }
 
@@ -51,8 +52,7 @@ class Login extends Component {
       url: 'http://localhost:8080/api/usersLogin',
       data: userObj,
       success: (resp) => {
-        // resp = user_id--> send up to App
-        console.log(resp);
+        this.props.handleLogin(resp);
       },
       error: (error) => {
         this.setState({
@@ -100,5 +100,9 @@ class Login extends Component {
     );
   }
 }
+
+Login.propTypes = {
+  handleLogin: PropTypes.func.isRequired,
+};
 
 export default Login;
