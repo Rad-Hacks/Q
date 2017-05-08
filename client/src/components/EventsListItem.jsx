@@ -29,7 +29,7 @@ class EventsListItem extends Component {
               subtitleStyle={{ fontSize: '24px', color: 'green' }}
             />
             <div className="info">
-              {//direct API request for photo based on photo reference obtained in EventForm}
+              {/* direct API request for photo based on photo reference obtained in EventForm*/}
               <img src={`https://maps.googleapis.com/maps/api/place/photo?maxwidth=400&maxheight=400&photoreference=${this.props.data.image}&key=${GOOGLE_API_KEY}`} width={'300'} height={'200'} alt="Estabishment" />
               <CardText className="cardtext" style={{ fontSize: '18px' }}>
                 Address: {this.props.data.address}<br />
