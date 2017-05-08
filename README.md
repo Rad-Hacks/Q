@@ -25,7 +25,7 @@ See [CONTRIBUTING.md](_CONTRIBUTING.md) for contribution guidelines.
     `$ mysql -u root < schema.sql`
 2. Start front end, backend:  
     `npm run all`
-
+### Alternative Steps: 
 1. Setup the mysql server:  
   `$ mysql -u root < schema.sql`  
   `$ mysql`  
