@@ -60,17 +60,8 @@ class FilterBox extends Component {
     }
     return (
       <div className="FilterBox">
-        <div className="sort">
-          <MuiThemeProvider>
-            <DropDownMenu value={this.state.value} onChange={this.handleChange}>
-              <MenuItem value={1} primaryText="Sort Items" />
-              <MenuItem value={2} primaryText="Sort By Date" />
-              <MenuItem value={3} primaryText="Sort By Amount" />
-            </DropDownMenu>
-          </MuiThemeProvider>
-        </div>
         <div className="search">
-          <p>Search for Q's in your area here:</p>
+          <p className="searchtext">Search for Q's in your area here:</p>
           <MuiThemeProvider>
             <AutoComplete
               hintText="City, ST"
@@ -80,6 +71,19 @@ class FilterBox extends Component {
               filter={AutoComplete.caseInsensitiveFilter}
               maxSearchResults={10}
             />
+          </MuiThemeProvider>
+        </div>
+        <div className="sort">
+          <MuiThemeProvider>
+            <DropDownMenu
+              value={this.state.value}
+              onChange={this.handleChange}
+              underlineStyle={styles.underlineStyle}
+            >
+              <MenuItem value={1} primaryText="Sort Items" />
+              <MenuItem value={2} primaryText="Sort By Date" />
+              <MenuItem value={3} primaryText="Sort By Amount" />
+            </DropDownMenu>
           </MuiThemeProvider>
         </div>
         <div className="filter">

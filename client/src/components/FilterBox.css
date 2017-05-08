@@ -3,20 +3,22 @@
   width:100%;
   height:100px;
   padding:0px;
-  margin: 10px;
+  margin: 0px;
 }
 
 .FilterBox .sort {
   width:30%;
   height:50%;
   display:inline-block;
-  text-align: left;
+  text-align: center;
+  margin-bottom: 10px;
 }
 
 .FilterBox .search {
   width:30%;
   height:50%;
   display:inline-block;
+  text-align: left;
 }
 
 .FilterBox .filter {
@@ -29,4 +31,8 @@
 .FilterBox .sort .search .filter: first-of-type {
   width:50%;
   height:100%;
+}
+
+.searchtext {
+  margin-bottom: 0px;
 }

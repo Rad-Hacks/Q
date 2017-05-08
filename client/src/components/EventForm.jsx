@@ -233,7 +233,7 @@ class EventForm extends Component {
 
     return (
       <MuiThemeProvider>
-        <div style={{ float: 'right', position: 'absolute' }}>
+        <div style={{ float: 'right' }}>
           <RaisedButton label="+" onTouchTap={this.handleOpen} />
           <Dialog
             title="Create a Q"

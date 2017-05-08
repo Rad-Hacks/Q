@@ -84,7 +84,7 @@ class Home extends Component {
             userId={this.state.loggedIn}
             handleLogout={this.props.handleLogout}
           />
-          <h2 className="Title">Q</h2>
+          <h2 className="Title">Welcome to Q</h2>
         </div>
         <p className="Home-intro">
           Sign-up, stand in line, make money.
