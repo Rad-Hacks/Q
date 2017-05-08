@@ -21,11 +21,16 @@ See [_STYLE-GUIDE.md](_STYLE-GUIDE.md) for styling guidelines. This project uses
 See [CONTRIBUTING.md](_CONTRIBUTING.md) for contribution guidelines.
 
 ## How to Start the App
+1. Setup the mysql server:
+    `$ mysql -u root < schema.sql`
+2. Start front end, backend:
+    `npm run all`
+
 1. Setup the mysql server:  
   `$ mysql -u root < schema.sql`  
   `$ mysql`  
   `mysql> use q;`  
-2. Start the back end server  
+2. Start the backend server  
    `$ npm start`  
 3. Start the front end server  
    `$ cd client && npm start`  
