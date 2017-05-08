@@ -16,6 +16,7 @@ const GOOGLE_API = require('../config/google.js');
 
 const GOOGLE_API_KEY = GOOGLE_API.apiSearch;
 
+// styling for input fields in create Q forms
 const styles = {
   errorStyle: {
     color: purple500,
@@ -31,6 +32,7 @@ const styles = {
   },
 };
 
+// parse date from database in YYYY-MM-DD
 const parsedDate = (dateStr) => {
   const month = dateStr.slice(4, 7);
   const months = {
@@ -50,6 +52,7 @@ const parsedDate = (dateStr) => {
   return `${dateStr.slice(11, 15)}-${months[month]}-${dateStr.slice(8, 10)}`;
 };
 
+// show date in HH:MM:SS
 const parseTime = (dateStr) => {
   const time = dateStr.slice(16, 24);
   return time;
@@ -126,6 +129,8 @@ class EventForm extends Component {
       });
     });
   }
+
+  // Open and Close handles pop-up dialog display (create q's)
   handleOpen() {
     this.setState({
       open: true,

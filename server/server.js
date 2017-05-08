@@ -14,6 +14,8 @@ app.use(bodyParser.urlencoded({
   extended: true,
 }));
 let sessLogin = null;
+
+// creates unique userId with crypto hashing function
 const hashUserId = (req) => {
   const userInfo = Object.keys(req.body).map(key => req.body[key]);
   const username = req.body.username;
@@ -128,6 +130,7 @@ app.get('/api/logout', (req, res) => {
   res.send('loggedOut');
 });
 
+// client request to server to check if a user is already logged in
 app.get('/api/insession', (req, res) => {
   if (sessLogin) {
     res.status(200).json(sessLogin);
