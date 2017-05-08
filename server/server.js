@@ -13,7 +13,7 @@ app.use(bodyParser.json()); // get info from html forms;
 app.use(bodyParser.urlencoded({
   extended: true,
 }));
-
+let sessLogin = null;
 const hashUserId = (req) => {
   const userInfo = Object.keys(req.body).map(key => req.body[key]);
   const username = req.body.username;
@@ -52,7 +52,8 @@ app.post('/api/events', (req, res) => {
 });
 
 app.post('/api/usersLogin', (req, res) => {
-  db.findUser(req.body.username, (err, results) => {
+  const user = JSON.stringify(req.body.username);
+  db.findUser(user, (err, results) => {
     if (err) {
       res.sendStatus(500);
     } else if (results.length > 0) {
@@ -61,7 +62,12 @@ app.post('/api/usersLogin', (req, res) => {
           res.sendStatus(500);
         }
         if (match) {
-          res.status(201).send(results[0].user_id);
+          sessLogin = req.body.username;
+          const loggedIn = {
+            userId: results[0].user_id,
+            loggedIn: true,
+          };
+          res.status(201).json(loggedIn);
         } else {
           res.sendStatus(500);
         }
@@ -78,7 +84,12 @@ app.post('/api/usersCreate', (req, res) => {
     if (err) {
       res.sendStatus(500);
     } else {
-      res.status(201).send(userInfo[5]);
+      sessLogin = userInfo[0];
+      const loggedIn = {
+        userId: userInfo[5],
+        loggedIn: true,
+      };
+      res.status(201).json(loggedIn);
     }
   });
 });
@@ -90,7 +101,12 @@ app.get('/api/googleusers', (req, res) => {
     if (err) {
       res.sendStatus(500);
     } else if (results.length > 0) {
-      res.status(200).send(results[0].user_id);
+      sessLogin = parsed.username;
+      const loggedIn = {
+        userId: results[0].user_id,
+        loggedIn: true,
+      };
+      res.status(200).json(loggedIn);
     }
   });
 });
@@ -101,9 +117,27 @@ app.post('/api/googleusers', (req, res) => {
     if (err) {
       res.sendStatus(500);
     } else {
-      res.status(201).send(userInfo[5]);
+      sessLogin = userInfo[0];
+      const loggedIn = {
+        userId: userInfo[5],
+        loggedIn: true,
+      };
+      res.status(201).json(loggedIn);
     }
   });
+});
+
+app.get('/api/logout', (req, res) => {
+  sessLogin = null;
+  res.send('loggedOut');
+});
+
+app.get('/api/insession', (req, res) => {
+  if (sessLogin) {
+    res.status(200).json(true);
+  } else {
+    res.status(200).json(false);
+  }
 });
 
 app.listen(8080, () => {

@@ -12,7 +12,9 @@ import { purple500, blue500 } from 'material-ui/styles/colors';
 import PropTypes from 'prop-types';
 import AutoComplete from 'material-ui/AutoComplete';
 
-const GOOGLE_API_KEY = require('../config/google.js');
+const GOOGLE_API = require('../config/google.js');
+
+const GOOGLE_API_KEY = GOOGLE_API.apiSearch;
 
 const styles = {
   errorStyle: {
@@ -91,6 +93,39 @@ class EventForm extends Component {
     this.getEstablishmentInfo = this.getEstablishmentInfo.bind(this);
   }
 
+  getCoordinates() {
+    $.get(`https://maps.googleapis.com/maps/api/geocode/json?address=${this.state.city},+${this.state.state}'&key=${GOOGLE_API_KEY}`)
+    .then((res) => {
+      this.setState({
+        placeLat: res.results[0].geometry.location.lat,
+        placeLng: res.results[0].geometry.location.lng,
+      });
+    });
+  }
+
+  getAutoCompletePredictions() {
+    $.get(`https://maps.googleapis.com/maps/api/place/autocomplete/json?input=${this.state.name}&types=establishment&location=${this.state.placeLat},${this.state.placeLng}&radius=500&key=${GOOGLE_API_KEY}`)
+    .then((res) => {
+      this.setState({
+        possibleLocations: res.predictions.map(place => place.description),
+        possibleIds: res.predictions.map(place => place.place_id),
+      });
+    });
+  }
+
+  getEstablishmentInfo() {
+    const id = this.state.possibleIds[0];
+    $.get(`https://maps.googleapis.com/maps/api/place/details/json?placeid=${id}&key=${GOOGLE_API_KEY}`)
+    .then((res) => {
+      this.setState({
+        name: res.result.name,
+        address: res.result.formatted_address.split(',')[0],
+        city: res.result.formatted_address.split(',')[1].replace(/\s/g, ''),
+        state: res.result.formatted_address.split(',')[2].substring(1, 3),
+        image: res.result.photos[0].photo_reference,
+      });
+    });
+  }
   handleOpen() {
     this.setState({
       open: true,
@@ -183,39 +218,6 @@ class EventForm extends Component {
     });
   }
 
-  getCoordinates() {
-    $.get(`https://maps.googleapis.com/maps/api/geocode/json?address=${this.state.city},+${this.state.state}'&key=${GOOGLE_API_KEY}`)
-    .then((res) => {
-      this.setState({
-        placeLat: res.results[0].geometry.location.lat,
-        placeLng: res.results[0].geometry.location.lng,
-      });
-    });
-  }
-
-  getAutoCompletePredictions() {
-    $.get(`https://maps.googleapis.com/maps/api/place/autocomplete/json?input=${this.state.name}&types=establishment&location=${this.state.placeLat},${this.state.placeLng}&radius=500&key=${GOOGLE_API_KEY}`)
-    .then((res) => {
-      this.setState({
-        possibleLocations: res.predictions.map(place => place.description),
-        possibleIds: res.predictions.map(place => place.place_id),
-      });
-    });
-  }
-
-  getEstablishmentInfo() {
-    const id = this.state.possibleIds[0];
-    $.get(`https://maps.googleapis.com/maps/api/place/details/json?placeid=${id}&key=${GOOGLE_API_KEY}`)
-    .then((res) => {
-      this.setState({
-        name: res.result.name,
-        address: res.result.formatted_address.split(',')[0],
-        city: res.result.formatted_address.split(',')[1].replace(/\s/g, ''),
-        state: res.result.formatted_address.split(',')[2].substring(1, 3),
-        image: res.result.photos[0].photo_reference,
-      });
-    });
-  }
 
   render() {
     const actions = [

@@ -60,7 +60,7 @@ module.exports = {
   },
 
   findUser(username, callback) {
-    connection.query(`SELECT * FROM users WHERE username='chihyundorischiu@gmail.com';`, (err, results) => {
+    connection.query(`SELECT * FROM users WHERE username=${username};`, (err, results) => {
       if (err) {
         callback(err, null);
       } else {

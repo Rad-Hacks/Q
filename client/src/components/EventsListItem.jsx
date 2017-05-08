@@ -4,7 +4,9 @@ import { Card, CardHeader, CardText } from 'material-ui/Card';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import './EventsListItem.css';
 
-const GOOGLE_API_KEY = require('../config/google.js');
+const GOOGLE_API = require('../config/google.js');
+
+const GOOGLE_API_KEY = GOOGLE_API.apiSearch;
 
 class EventsListItem extends Component {
   constructor(props) {
