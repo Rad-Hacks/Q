@@ -18,16 +18,16 @@ class App extends Component {
     this.handleLogin = this.handleLogin.bind(this);
     this.handleLogout = this.handleLogout.bind(this);
   }
-  componentWillMount() {
+  componentDidMount() {
     $.get('http://localhost:8080/api/insession')
     .then((resp) => {
       this.setState({
-        loggedIn: resp,
+        userId: resp.userId,
+        loggedIn: resp.loggedIn,
       });
     });
   }
   handleLogin(loggedObj) {
-    console.log(loggedObj);
     this.setState({
       userId: loggedObj.userId,
       loggedIn: loggedObj.loggedIn,
