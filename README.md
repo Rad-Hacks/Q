@@ -43,7 +43,7 @@ To start using Q, simply go to the site and create an account with our app or lo
     `$ mysql -u root < schema.sql`
 2. Start the front end, and backend servers:  
     `npm run all`
-#### Or: 
+Or: 
 1. Setup the mysql server:  
   `$ mysql -u root < schema.sql`  
   `$ mysql`  
