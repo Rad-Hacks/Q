@@ -1,16 +1,18 @@
 deploy:
   provider: heroku
   api_key:
-    secure: aNaYJXgmcqJM+fDZaZqF+qdzwNol/eHCMuPPqwXYBJbz2xjbvglVq7PRcGx8py5UrRRlEroBRdlo0VCNN3QS9k8FmchmqrZhj8U1C+sZl4vjuOYU+fZj0LQyxFkZsUQE4LGjJ/ii2XU8kBU7X7dSmKGXvliUPISz878r53cHWpwIBcHoZ4xEja8bfpzhb5Pjih+Jr9/r+bbfLxvSRaRjf6pxhJF2TqT0XuGkMaOqTLXIcpIZicn4intCgfOjC0XUrdyb91bssErZCzZbbH5zqpYNXa/2i69c152fhqkk4QFCJwnGF7hiyPmzsNw0t0rq+TeSPh27jChHydw3yivxv7gFsJ/NigVMHRkqlmBfaYjeItAvVb8Em7lSU9Lqk+XEayl+hksZmVI9BX9Djo7kR9ekBDV2JhfCxdI7sV8QdXFTw82bUyfNnxyHYnYAb7kx0W1eIgX4WGOC3fVYZg1HGABkjJPxBqxRNVtBFe21Ytib+1RnZkDDI5NbEc7DjyJ0KQMAtvmA6ShzicRzcOugDiW21HpwC5j66bhr5ztEjLs9vmFO++dPV5LIMLwaTVJ+D+pbumzPqnEd7witrXQOFrHH183NkbQTxy3T7Rg77gz3GF+07EKYwVPyOa8bex+gEqePi/ZfrqArAOgv0SUtvKP7iz+zLErsTQi9myeBAYE=
+    secure: obeF0k8g7ML/Iw/LsRdl5nGZoxB11KUB+wipCNoCVwUY3+XfAX4XlN6WlnbbdxALrtCdI7hsmu6mMvyksU47iBx05nDog2wNvGFTUlJz1U/fmPOYvR02yusSJ59F56kxzvC4TavU1Ph9qnHeeGJ0VvyuufP9/H+kdSQtDgoe1cB9Wl/Q4X86t9WQD/GTQywbPIf1qM0OECrWGbKQxdk8LIfAQMR1NyXhg8BTEaAaUaBxOPwcQffDOjTzNtbuzwdpjZ1fHuz4A+gmW6jv8tXiqX1Ww9EQSqD0RgIgg5ebDAGL86mrIOA4c17LtUDkDA3EI58Di0IxPmUcgsVVu/v1A/FbHpymaOUnqFG0ItbIV0jmCUzdyy9eUTsud+f7FPwsYSpxzO4+yk47x9gnzhGkINXUChBe0FKwmHZt1/E+zKGsonyPPIMsZ3SpDuhLpjFcO8mJmbVWWVDPrOhwPWcFLnokFJuVgy1VxZOyzXBMtDCa5g94ac03AxVWviBIcobpWSFyHGtlefHnqCye4xzqxjWwMss/HFYvBf2zfNaLEpxA5lbZg7Ki5SzgI+gMdqIJJ6UWQC/zmCbRGFT82fGkgRCpGGK1crMgLyaoCIxwcW01HsK3XfhDLVtxDraChF2l08D4GGm5IWk2BhziJFXTMmiTW+G1UThAdx25prlcTsM=
+  app: Q
+  on:
+    repo: Rad-Hacks/Q
 language: node_js
 node_js:
-  - "7"
+- '7'
 env:
-  - CXX=g++-4.8
+- CXX=g++-4.8
 addons:
   apt:
     sources:
-      - ubuntu-toolchain-r-test
+    - ubuntu-toolchain-r-test
     packages:
-      - g++-4.8
-
+    - g++-4.8
