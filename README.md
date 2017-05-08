@@ -33,9 +33,9 @@ To start using Q, simply go to the site and create an account with our app or lo
 ## Development
 
 ### Installing dependencies
-1.  Install app dependencies
+1.  Install app dependencies  
 `$ npm install`
-2.  Install client dependencies
+2.  Install client dependencies  
 `$ cd client && npm install`
 
 ### How to Start the App
