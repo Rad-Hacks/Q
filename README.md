@@ -60,7 +60,7 @@ To access the __React Developer Tools__, download the [__Chrome Extension__](htt
 
 ### Roadmap
 
-View the project roadmap [here](LINK_TO_PROJECT_ISSUES)
+View the project roadmap [here](https://github.com/Rad-Hacks/Q/issues)
 
 ### Styling
 
