@@ -28,7 +28,7 @@ class Home extends Component {
   componentDidMount() {
     this.getQsFromDB();
   }
-
+// retrieves all events in database once component mounts
   getQsFromDB() {
     fetch('http://localhost:8080/api/events')
       .then(res => res.json())
@@ -40,12 +40,13 @@ class Home extends Component {
         });
       });
   }
+// sets current location, used in FilterBox to filter local events
   setLocation(loc) {
     this.setState({
       currentLocation: loc,
     });
   }
-
+// toggles states, controlled by events in FilterBox
   toggleSortByDate() {
     this.setState({
       sortByDate: !this.state.sortByDate,
@@ -70,7 +71,7 @@ class Home extends Component {
       sortByDate: false,
     });
   }
-
+// refreshes listed events after new Q is submitted
   handleCreateQ() {
     this.getQsFromDB();
   }
