@@ -75,7 +75,7 @@ class FilterBox extends Component {
             />
           </MuiThemeProvider>
         </div>
-        [//sorts by date or dollar amount]
+        {/* sorts by date or dollar amount*/}
         <div className="sort">
           <MuiThemeProvider>
             <DropDownMenu
@@ -89,7 +89,7 @@ class FilterBox extends Component {
             </DropDownMenu>
           </MuiThemeProvider>
         </div>
-        [// filters users created Qs]
+        {/* // filters users created Qs*/}
         <div className="filter">
           <MuiThemeProvider>
             <RaisedButton
