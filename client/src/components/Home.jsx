@@ -81,7 +81,7 @@ class Home extends Component {
         <div className="Home-header">
           <Nav
             handleCreateQ={this.handleCreateQ}
-            userId={this.state.loggedIn}
+            userId={this.props.userId}
             handleLogout={this.props.handleLogout}
           />
           <h2 className="Title">Welcome to Q</h2>
@@ -105,7 +105,7 @@ class Home extends Component {
           sortByDate={this.state.sortByDate}
           sortByAmount={this.state.sortByAmount}
           filterUserQs={this.state.filterUserQs}
-          userId={this.state.loggedIn}
+          userId={this.props.userId}
         />
       </div>
     );
@@ -114,6 +114,11 @@ class Home extends Component {
 
 Home.propTypes = {
   handleLogout: PropTypes.func.isRequired,
+  userId: PropTypes.string,
+};
+
+Home.defaultProps = {
+  userId: null,
 };
 
 export default Home;

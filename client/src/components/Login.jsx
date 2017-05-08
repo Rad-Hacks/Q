@@ -19,16 +19,16 @@ class Login extends Component {
     this.handleFailure = this.handleFailure.bind(this);
   }
   handleGoogle(response) {
-    fetch('http://localhost:8080/api/googleusers', {
-      method: 'GET',
-      params: {
-        username: response.profileObj.email,
-      },
+    $.ajax({
+      type: 'GET',
+      url: 'http://localhost:8080/api/googleusers',
+      params: { username: response.profileObj.email },
     })
     .then((resp) => {
       this.props.handleLogin(resp);
     })
     .catch((err) => {
+      console.log('Error: ', err);
       this.setState({
         loginErr: true,
         errMsg: err,
