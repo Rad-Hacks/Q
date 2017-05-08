@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import injectTapEventPlugin from 'react-tap-event-plugin';
 import PropTypes from 'prop-types';
+import $ from 'jquery';
 import Home from './components/Home';
 import Welcome from './components/Welcome';
 import './index.css';
@@ -12,22 +13,38 @@ class App extends Component {
     super(props);
     this.state = {
       userId: null,
+      loggedIn: null,
     };
     this.handleLogin = this.handleLogin.bind(this);
     this.handleLogout = this.handleLogout.bind(this);
   }
-  handleLogin(userID) {
+  componentWillMount() {
+    $.get('http://localhost:8080/api/insession')
+    .then((resp) => {
+      this.setState({
+        loggedIn: resp,
+      });
+    });
+  }
+  handleLogin(loggedObj) {
+    console.log(loggedObj);
     this.setState({
-      userId: userID,
+      userId: loggedObj.userId,
+      loggedIn: loggedObj.loggedIn,
     });
   }
   handleLogout() {
-    this.setState({
-      userId: null,
+    $.get('http://localhost:8080/api/logout')
+    .then(() => {
+      this.setState({
+        userId: null,
+        loggedIn: false,
+      });
     });
   }
+
   render() {
-    const page = this.state.userId !== null ?
+    const page = this.state.loggedIn ?
       (<Home
         userId={this.state.userId}
         handleLogout={this.handleLogout}

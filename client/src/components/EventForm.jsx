@@ -12,7 +12,9 @@ import { purple500, blue500 } from 'material-ui/styles/colors';
 import PropTypes from 'prop-types';
 import AutoComplete from 'material-ui/AutoComplete';
 
-const GOOGLE_API_KEY = require('../config/google.js');
+const GOOGLE_API = require('../config/google.js');
+
+const GOOGLE_API_KEY = GOOGLE_API.apiSearch;
 
 const styles = {
   errorStyle: {

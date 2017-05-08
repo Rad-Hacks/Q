@@ -1,8 +1,15 @@
 import React, { Component } from 'react';
 import GoogleLogin from 'react-google-login';
+import CircularProgress from 'material-ui/CircularProgress';
+import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import PropTypes from 'prop-types';
 import $ from 'jquery';
 import './Login.css';
+
+const GOOGLE_API = require('../config/google.js');
+
+const GOOGLE_CLIENT_ID = GOOGLE_API.apiAuth;
+let progressBar = null;
 
 class Login extends Component {
   constructor(props) {
@@ -19,16 +26,20 @@ class Login extends Component {
     this.handleFailure = this.handleFailure.bind(this);
   }
   handleGoogle(response) {
+    progressBar = <CircularProgress size={60} thickness={7} />;
     $.ajax({
       type: 'GET',
       url: 'http://localhost:8080/api/googleusers',
-      params: { username: response.profileObj.email },
+      data: {
+        username: response.profileObj.email,
+      },
     })
     .then((resp) => {
+      progressBar = null;
       this.props.handleLogin(resp);
     })
     .catch((err) => {
-      console.log('Error: ', err);
+      progressBar = null;
       this.setState({
         loginErr: true,
         errMsg: err,
@@ -43,18 +54,22 @@ class Login extends Component {
   }
 
   handleSubmit() {
+    progressBar = <CircularProgress size={60} thickness={7} />;
     const userObj = {
       username: this.state.username,
       password: this.state.password,
     };
+    console.log('login success');
     $.ajax({
       type: 'POST',
       url: 'http://localhost:8080/api/usersLogin',
       data: userObj,
       success: (resp) => {
+        progressBar = null;
         this.props.handleLogin(resp);
       },
       error: (error) => {
+        progressBar = null;
         this.setState({
           googErr: true,
           errMsg: error,
@@ -79,16 +94,19 @@ class Login extends Component {
             onChange={(e) => { this.setState({ password: e.target.value }); }}
           />
           <i className="fa fa-key" />
-          <button onClick={this.handleSubmit}>
+          <button onClick={(e) => {e.preventDefault(); return this.handleSubmit(e); }} >
             <i className="spinner" />
             <span className="state">Log in</span>
           </button>
+          <MuiThemeProvider>
+            {progressBar}
+          </MuiThemeProvider>
         </form>
         <br />
         <br />
         <div>
           <GoogleLogin
-            clientId="1031010390104-f139vsdq3f8dn21usnuj4h3jtq8jpdpf.apps.googleusercontent.com"
+            clientId={GOOGLE_CLIENT_ID}
             buttonText="Sign In with Google"
             onSuccess={this.handleGoogle}
             onFailure={this.handleFailure}

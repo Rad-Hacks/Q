@@ -3,6 +3,10 @@ import GoogleLogin from 'react-google-login';
 import PropTypes from 'prop-types';
 import $ from 'jquery';
 
+const GOOGLE_API = require('../config/google.js');
+
+const GOOGLE_CLIENT_ID = GOOGLE_API.apiAuth;
+
 class Signup extends Component {
   constructor(props) {
     super(props);
@@ -116,7 +120,7 @@ class Signup extends Component {
         <br />
         <div>
           <GoogleLogin
-            clientId="1031010390104-f139vsdq3f8dn21usnuj4h3jtq8jpdpf.apps.googleusercontent.com"
+            clientId={GOOGLE_CLIENT_ID}
             buttonText="Sign Up with Google"
             onSuccess={this.handleGoogle}
             onFailure={this.handleFailure}
