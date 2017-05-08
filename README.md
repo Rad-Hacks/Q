@@ -18,9 +18,11 @@ View the project roadmap [here](LINK_TO_PROJECT_ISSUES)
 See [CONTRIBUTING.md](_CONTRIBUTING.md) for contribution guidelines.
 
 ## How to Start the App
-1) start up mysql:
-  a) mysql -u root < schema.sql
-  b) mysql
-  c) use q;
-2) run 'npm start' in main 'Q' folder
-3) run 'npm start' in the 'client' folder
+1) Setup the mysql server:
+  `$ mysql -u root < schema.sql`
+  `$ mysql`
+  `mysql> use q;`
+2) Start the back end server
+   `$ npm start`
+3) Start the front end server
+   `$ cd client && npm start`
