@@ -5,7 +5,8 @@
   "main": "index.js",
   "scripts": {
     "lint": "./node_modules/.bin/eslint",
-    "start": "nodemon server/server.js "
+    "start": "nodemon server/server.js ",
+    "all": "concurrently \"npm start\" \"cd client && npm start\" \"mysql\""
   },
   "repository": {
     "type": "git",
@@ -18,6 +19,7 @@
   },
   "homepage": "https://github.com/Rad-Hacks/Q#readme",
   "devDependencies": {
+    "concurrently": "^3.4.0",
     "eslint": "^3.19.0",
     "eslint-config-airbnb": "^14.1.0",
     "eslint-plugin-import": "^2.2.0",

@@ -9,18 +9,16 @@ const connection = mysql.createConnection({
 });
 
 connection.connect();
-// query goes here
 
+// queries to the database
 module.exports = {
   insertQ(values, callback) {
     const queryString = `INSERT INTO events (user_id, name, amount, address, city, state, date, time, duration, contactEmail, image)
     VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);`;
-    console.log(values);
     connection.query(queryString, values, (err, results) => {
       if (err) {
         callback(err, null);
       } else {
-        console.log(results);
         callback(null, results);
       }
     });
@@ -35,7 +33,6 @@ module.exports = {
       }
     });
   },
-
 
   createUser(values, callback) {
     const password = values[1];
