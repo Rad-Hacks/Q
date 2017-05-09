@@ -39,7 +39,7 @@ class EventsListItem extends Component {
                 Duration: {`${this.props.data.duration} hours`}<br />
                 <FlatButton
                   label="Contact User"
-                  href={`mailto:${this.props.data.contactEmail}`}
+                  href={`mailto:${this.props.data.contactEmail}?subject=Message%20From%20Q:%20Let%20me%20wait%20for%20you%20at%20${this.props.data.name}!`}
                 /><br />
               </CardText>
             </div>
