@@ -107,6 +107,7 @@ class Home extends Component {
           sortByAmount={this.state.sortByAmount}
           filterUserQs={this.state.filterUserQs}
           userId={this.props.userId}
+          handleRemove={this.handleCreateQ}
         />
       </div>
     );
