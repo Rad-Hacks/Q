@@ -1,8 +1,10 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+import $ from 'jquery';
 import { Card, CardHeader, CardText } from 'material-ui/Card';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import FlatButton from 'material-ui/FlatButton';
+import RaisedButton from 'material-ui/RaisedButton';
 import './EventsListItem.css';
 
 const GOOGLE_API = require('../config/google.js');
@@ -15,9 +17,33 @@ class EventsListItem extends Component {
     this.state = {
       photo: null,
     };
+    this.handleRemoveClick = this.handleRemoveClick.bind(this);
+  }
+  handleRemoveClick() {
+    $.ajax({
+      type: 'POST',
+      url: 'http://localhost:8080/api/deleteEvent',
+      data: {
+        name: JSON.stringify(this.props.data.name),
+        date: JSON.stringify(this.props.data.date.slice(0, 10)),
+        contactEmail: JSON.stringify(this.props.data.contactEmail),
+      },
+      success: () => {
+        this.props.handleRemove('filtered');
+      },
+      error: (error) => {
+        console.log(error);
+      },
+    });
   }
 
   render() {
+    const removeQ = this.props.ownQ ?
+    (<RaisedButton
+      label="Remove this Q"
+      onTouchTap={this.handleRemoveClick}
+    />)
+    : null;
     if (this.props.data.image) {
       return (
         <MuiThemeProvider>
@@ -42,6 +68,7 @@ class EventsListItem extends Component {
                   href={`mailto:${this.props.data.contactEmail}?subject=Message%20From%20Q:%20Let%20me%20wait%20for%20you%20at%20${this.props.data.name}!`}
                 /><br />
               </CardText>
+              {removeQ}
             </div>
           </Card>
         </MuiThemeProvider>
@@ -66,6 +93,7 @@ class EventsListItem extends Component {
               href={`mailto:${this.props.data.contactEmail}?subject=Message%20From%20Q:%20Let%20me%20wait%20for%20you%20at%20${this.props.data.name}!`}
             />
           </CardText>
+          {removeQ}
         </Card>
       </MuiThemeProvider>
     );
@@ -74,6 +102,13 @@ class EventsListItem extends Component {
 
 EventsListItem.propTypes = {
   data: PropTypes.node.isRequired,
+  handleRemove: PropTypes.func,
+  ownQ: PropTypes.string,
+};
+
+EventsListItem.defaultProps = {
+  ownQ: null,
+  handleRemove: null,
 };
 
 export default EventsListItem;

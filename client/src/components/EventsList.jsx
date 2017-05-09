@@ -20,7 +20,13 @@ class EventsList extends Component {
           {this.props.events.filter(event =>
             (event.user_id === this.props.userId))
           .map(event => (
-            <EventsListItem key={event.id} style={{ width: '200px' }} data={event} />
+            <EventsListItem
+              key={event.id}
+              style={{ width: '200px' }}
+              data={event}
+              ownQ
+              handleRemove={this.props.handleRemove}
+            />
           ))}
         </div>
       );
@@ -101,6 +107,7 @@ EventsList.propTypes = {
   events: PropTypes.node.isRequired,
   filterUserQs: PropTypes.bool,
   userId: PropTypes.string,
+  handleRemove: PropTypes.func.isRequired,
 };
 
 EventsList.defaultProps = {
