@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { Card, CardHeader, CardText } from 'material-ui/Card';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
+import FlatButton from 'material-ui/FlatButton';
 import './EventsListItem.css';
 
 const GOOGLE_API = require('../config/google.js');
@@ -36,7 +37,10 @@ class EventsListItem extends Component {
                 Date: {this.props.data.date.slice(0, 10)}<br />
                 Time: {this.props.data.time}<br />
                 Duration: {`${this.props.data.duration} hours`}<br />
-                Contact: {this.props.data.contactEmail}<br />
+                <FlatButton
+                  label="Contact User"
+                  href={`mailto:${this.props.data.contactEmail}?subject=Message%20From%20Q:%20Let%20me%20wait%20for%20you%20at%20${this.props.data.name}!`}
+                /><br />
               </CardText>
             </div>
           </Card>
@@ -57,7 +61,10 @@ class EventsListItem extends Component {
             Date: {this.props.data.date.slice(0, 10)}<br />
             Time: {this.props.data.time}<br />
             Duration: {`${this.props.data.duration} hours`}<br />
-            Contact: {this.props.data.contactEmail}<br />
+            <FlatButton
+              label="Contact User"
+              href={`mailto:${this.props.data.contactEmail}?subject=Message%20From%20Q:%20Let%20me%20wait%20for%20you%20at%20${this.props.data.name}!`}
+            />
           </CardText>
         </Card>
       </MuiThemeProvider>
