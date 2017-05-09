@@ -53,6 +53,16 @@ app.post('/api/events', (req, res) => {
   });
 });
 
+app.post('/api/deleteEvent', (req, res) => {
+  db.deleteQ(req.body, (err, results) => {
+    if (err) {
+      res.sendStatus(500);
+    } else {
+      res.sendStatus(204);
+    }
+  });
+});
+
 app.post('/api/usersLogin', (req, res) => {
   const user = JSON.stringify(req.body.username);
   db.findUser(user, (err, results) => {

@@ -12,6 +12,16 @@ connection.connect();
 
 // queries to the database
 module.exports = {
+  deleteQ(params, callback) {
+    const queryString = `DELETE FROM events WHERE name=${params.name} && date=${params.date} && contactEmail=${params.contactEmail};`;
+    connection.query(queryString, (err, results) => {
+      if (err) {
+        callback(err, null);
+      } else {
+        callback(null, results);
+      }
+    });
+  },
   insertQ(values, callback) {
     const queryString = `INSERT INTO events (user_id, name, amount, address, city, state, date, time, duration, contactEmail, image)
     VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);`;
