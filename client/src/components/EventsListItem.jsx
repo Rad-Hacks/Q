@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import { Card, CardHeader, CardText } from 'material-ui/Card';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import './EventsListItem.css';
+import FlatButton from 'material-ui/FlatButton';
 
 const GOOGLE_API = require('../config/google.js');
 
@@ -36,7 +37,10 @@ class EventsListItem extends Component {
                 Date: {this.props.data.date.slice(0, 10)}<br />
                 Time: {this.props.data.time}<br />
                 Duration: {`${this.props.data.duration} hours`}<br />
-                Contact: {this.props.data.contactEmail}<br />
+                <FlatButton
+                  label="Contact User"
+                  href={`mailto:${this.props.data.contactEmail}`}
+                /><br />
               </CardText>
             </div>
           </Card>
